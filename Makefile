@@ -1,7 +1,10 @@
-OS_IDENTIFIER ?= xenial
-R_VERSION ?= 3.4.4
+VERSION ?= 3.4
+VARIANT ?= xenial
 
-build:
-	docker build -t rstudio/r:${R_VERSION}-${OS_IDENTIFIER} --build-arg R_VERSION=${R_VERSION} ${OS_IDENTIFIER}/.
+build-base:
+	docker build -t rstudio/r:${VARIANT} base/${VARIANT}/.
+
+build-r:
+	docker build -t rstudio/r:${VERSION}-${VARIANT} ${VERSION}/${VARIANT}/.
 
 .PHONY: build

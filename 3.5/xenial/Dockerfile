@@ -1,23 +1,6 @@
-FROM ubuntu:xenial
+FROM rstudio/r:xenial
 
-ENV OS_IDENTIFIER ubuntu-1604
-
-RUN apt-get update -qq && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    apt-transport-https \
-    build-essential \
-    curl \
-    git \
-    libatlas3-base \
-    libcurl4-openssl-dev \
-    libicu-dev \
-    libxml2-dev \
-    locales \
-    software-properties-common \
-    sudo \
-    wget
-
-ARG R_VERSION
+ENV R_VERSION 3.5.2
 
 # Install R
 RUN wget -O R-${R_VERSION}.tar.gz https://cdn.rstudio.com/r/${OS_IDENTIFIER}/R-${R_VERSION}-${OS_IDENTIFIER}.tar.gz && \
@@ -33,3 +16,5 @@ RUN update-locale --reset LANG=C.UTF-8
 
 # Set default LANG via Renviron.site
 RUN echo "LANG=C.UTF-8" >> /usr/lib/R/etc/Renviron.site
+
+CMD ["R"]
