@@ -1,6 +1,7 @@
 FROM rstudio/r:xenial
 
-ENV R_VERSION 3.5.2
+ARG R_VERSION=3.5.2
+ARG OS_IDENTIFIER=ubuntu-1604
 
 # Install R
 RUN wget -O R-${R_VERSION}.tar.gz https://cdn.rstudio.com/r/${OS_IDENTIFIER}/R-${R_VERSION}-${OS_IDENTIFIER}.tar.gz && \

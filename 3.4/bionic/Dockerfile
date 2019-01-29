@@ -1,6 +1,7 @@
 FROM rstudio/r:bionic
 
-ENV R_VERSION 3.4.4
+ARG R_VERSION=3.4.4
+ARG OS_IDENTIFIER=ubuntu-1804
 
 # install R
 RUN wget -O R-${R_VERSION}.tar.gz https://cdn.rstudio.com/r/${OS_IDENTIFIER}/R-${R_VERSION}-${OS_IDENTIFIER}.tar.gz && \
