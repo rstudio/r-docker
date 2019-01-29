@@ -5,10 +5,9 @@ RUN apt-get update -qq && \
     apt-transport-https \
     build-essential \
     curl \
-    git \
     libatlas3-base \
     libcurl4-openssl-dev \
+    libicu-dev \
     locales \
-    software-properties-common \
     sudo \
     wget
