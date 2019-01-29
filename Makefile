@@ -1,10 +1,22 @@
-VERSION ?= 3.4
-VARIANT ?= xenial
+VERSIONS := 3.4 3.5
+VARIANTS := xenial bionic
 
-build-base:
-	docker build -t rstudio/r:${VARIANT} base/${VARIANT}/.
+all: build-all
 
-build-r:
-	docker build -t rstudio/r:${VERSION}-${VARIANT} ${VERSION}/${VARIANT}/.
+build-base-%:
+	docker build -t rstudio/r:$* base/$*/.
 
-.PHONY: build
+define GEN_BUILD_R_IMAGES
+build-r-$(version)-$(variant): build-base-$(variant)
+	docker build -t rstudio/r:$(version)-$(variant) $(version)/$(variant)/.
+
+BUILD_R_IMAGES += build-r-$(version)-$(variant)
+endef
+
+$(foreach variant,$(VARIANTS), \
+  $(foreach version,$(VERSIONS), \
+    $(eval $(GEN_BUILD_R_IMAGES)) \
+  ) \
+)
+
+build-all: $(BUILD_R_IMAGES)
