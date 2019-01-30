@@ -1,4 +1,4 @@
-FROM rstudio/r:xenial
+FROM rstudio/r-base:xenial
 
 ARG R_VERSION=3.5.2
 ARG OS_IDENTIFIER=ubuntu-1604

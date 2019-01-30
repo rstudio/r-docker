@@ -1,4 +1,4 @@
-FROM rstudio/r:bionic
+FROM rstudio/r-base:bionic
 
 ARG R_VERSION=3.4.4
 ARG OS_IDENTIFIER=ubuntu-1804
