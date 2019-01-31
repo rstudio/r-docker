@@ -1,4 +1,4 @@
-BASE_IMAGE = rstudio/r-base
+BASE_IMAGE ?= rstudio/r-base
 VERSIONS = 3.4 3.5
 VARIANTS = xenial bionic
 
