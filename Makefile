@@ -1,18 +1,18 @@
-IMAGE_NAME = rstudio/r-base
+BASE_IMAGE = rstudio/r-base
 VERSIONS = 3.4 3.5
 VARIANTS = xenial bionic
 
 all: build-all test-all
 
 build-base-%:
-	docker build -t $(IMAGE_NAME):$* base/$*/.
+	docker build -t $(BASE_IMAGE):$* base/$*/.
 
 define GEN_BUILD_R_IMAGES
 build-r-$(version)-$(variant): build-base-$(variant)
-	docker build -t $(IMAGE_NAME):$(version)-$(variant) $(version)/$(variant)/.
+	docker build -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
 
 test-r-$(version)-$(variant):
-	docker run -it --rm -v $(PWD)/test:/test $(IMAGE_NAME):$(version)-$(variant) /test/test.sh
+	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) /test/test.sh
 
 BUILD_R_IMAGES += build-r-$(version)-$(variant)
 TEST_R_IMAGES += test-r-$(version)-$(variant)

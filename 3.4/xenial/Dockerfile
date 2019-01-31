@@ -1,4 +1,5 @@
-FROM rstudio/r-base:xenial
+ARG BASE_IMAGE=rstudio/r-base
+FROM ${BASE_IMAGE}:xenial
 
 ARG R_VERSION=3.4.4
 ARG OS_IDENTIFIER=ubuntu-1604

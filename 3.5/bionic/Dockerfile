@@ -1,4 +1,5 @@
-FROM rstudio/r-base:bionic
+ARG BASE_IMAGE=rstudio/r-base
+FROM ${BASE_IMAGE}:bionic
 
 ARG R_VERSION=3.5.2
 ARG OS_IDENTIFIER=ubuntu-1804
