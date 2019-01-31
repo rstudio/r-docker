@@ -11,3 +11,8 @@ RUN apt-get update -qq && \
     locales \
     sudo \
     wget
+
+# Install TinyTeX
+RUN wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh -s - --admin --no-path && \
+    mv ~/.TinyTeX /opt/TinyTeX && \
+    /opt/TinyTeX/bin/*/tlmgr path add
