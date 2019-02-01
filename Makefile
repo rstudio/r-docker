@@ -1,5 +1,5 @@
 BASE_IMAGE ?= rstudio/r-base
-VERSIONS = 3.4 3.5
+VERSIONS = 3.1 3.2 3.3 3.4 3.5
 VARIANTS = xenial bionic
 
 all: update-all build-all test-all
