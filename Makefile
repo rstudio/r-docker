@@ -2,7 +2,10 @@ BASE_IMAGE ?= rstudio/r-base
 VERSIONS = 3.4 3.5
 VARIANTS = xenial bionic
 
-all: build-all test-all
+all: update-all build-all test-all
+
+update-all:
+	@./update.sh
 
 build-base-%:
 	docker build -t $(BASE_IMAGE):$* base/$*/.

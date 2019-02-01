@@ -1,3 +1,9 @@
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:xenial
 
