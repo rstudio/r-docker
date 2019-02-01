@@ -29,7 +29,7 @@ for version in "${!r_versions[@]}"; do
     for variant in "${!os_identifiers[@]}"; do
         dir="$version/$variant"
 
-        [ -d "$dir" ] || continue
+        mkdir -p $dir
 
         case "$variant" in
             xenial|bionic) template='ubuntu'
