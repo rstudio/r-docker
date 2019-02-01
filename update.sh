@@ -26,11 +26,8 @@ generated_warning() {
 }
 
 for version in "${!r_versions[@]}"; do
-    for v in \
-        "${!os_identifiers[@]}" \
-    ; do
-        dir="$version/$v"
-        variant="$(basename "$v")"
+    for variant in "${!os_identifiers[@]}"; do
+        dir="$version/$variant"
 
         [ -d "$dir" ] || continue
 

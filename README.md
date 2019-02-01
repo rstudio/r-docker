@@ -5,9 +5,9 @@
 - `3.5-xenial`, `3.5-bionic`
 - `xenial`, `bionic` (base images without R)
 
-### Building
+### Building Images
 ```bash
-# Build and test all images
+# Update, build, and test all images
 make
 
 # Build and test images for a specific R version
