@@ -20,10 +20,10 @@ make VERSIONS=3.4
 make VARIANTS=xenial
 
 # Build a specific image
-make build-r-3.4-xenial
+make build-3.4-xenial
 
 # Test a specific image
-make test-r-3.4-xenial
+make test-3.4-xenial
 ```
 
 ### Updating Dockerfiles

@@ -11,14 +11,14 @@ build-base-%:
 	docker build -t $(BASE_IMAGE):$* base/$*/.
 
 define GEN_BUILD_R_IMAGES
-build-r-$(version)-$(variant): build-base-$(variant)
+build-$(version)-$(variant): build-base-$(variant)
 	docker build -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
 
-test-r-$(version)-$(variant):
+test-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) /test/test.sh
 
-BUILD_R_IMAGES += build-r-$(version)-$(variant)
-TEST_R_IMAGES += test-r-$(version)-$(variant)
+BUILD_R_IMAGES += build-$(version)-$(variant)
+TEST_R_IMAGES += test-$(version)-$(variant)
 endef
 
 $(foreach variant,$(VARIANTS), \
