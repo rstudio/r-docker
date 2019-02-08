@@ -6,7 +6,7 @@ RUN apt-get update -qq && \
     build-essential \
     curl \
     gfortran \
-    libatlas3-base \
+    libatlas-base-dev \
     libcurl4-openssl-dev \
     libicu-dev \
     locales \
