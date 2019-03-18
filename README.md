@@ -26,9 +26,11 @@ make build-3.4-xenial
 make test-3.4-xenial
 ```
 
-### Updating Dockerfiles
+### Updating Images
 1. Update [`update.sh`](update.sh) and [Makefile](Makefile) with the new distro or R version
 2. Generate new Dockerfiles:
 ```bash
 make update-all
 ```
+3. Build and test the new images locally
+4. Submit a pull request
