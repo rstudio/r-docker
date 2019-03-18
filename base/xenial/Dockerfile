@@ -14,6 +14,7 @@ RUN apt-get update -qq && \
     libpcre3-dev \
     locales \
     sudo \
+    tzdata \
     wget \
     zlib1g-dev
 
