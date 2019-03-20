@@ -14,3 +14,10 @@ library(BASIX)
 if (length(OlsonNames()) == 0) {
   stop("Time zone database not found")
 }
+
+# Check that built-in packages can be loaded
+for (pkg in rownames(installed.packages(priority = c("base", "recommended")))) {
+  if (!require(pkg, character.only = TRUE)) {
+    stop(sprintf("failed to load built-in package %s", pkg))
+  }
+}
