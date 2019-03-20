@@ -14,6 +14,8 @@ RUN apt-get update -qq && \
     libpcre3-dev \
     locales \
     sudo \
+    libtcl8.6 \
+    libtk8.6 \
     tzdata \
     wget \
     zlib1g-dev
