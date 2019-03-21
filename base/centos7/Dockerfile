@@ -1,6 +1,10 @@
 FROM centos:centos7
 
 RUN yum -y update && \
+    yum -y install epel-release && \
+    yum clean all
+
+RUN yum -y update && \
     yum -y groupinstall "Development tools" && \
     yum -y install \
     gcc \
@@ -10,6 +14,9 @@ RUN yum -y update && \
     pcre2 \
     perl-Digest-MD5 \
     sudo \
+    tcl \
+    tk \
+    tre \
     vim \
     wget && \
     yum clean all
