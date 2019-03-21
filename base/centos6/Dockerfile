@@ -14,7 +14,9 @@ RUN yum -y update && \
     pcre2 \
     perl-Digest-MD5 \
     sudo \
+    tcl \
     texlive \
+    tk \
     vim \
     wget && \
     yum clean all
