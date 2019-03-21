@@ -12,6 +12,8 @@ declare -A r_versions=(
 declare -A os_identifiers=(
     [xenial]='ubuntu-1604'
     [bionic]='ubuntu-1804'
+    [centos6]='centos-6'
+    [centos7]='centos-7'
 )
 
 generated_warning() {
@@ -33,6 +35,8 @@ for version in "${!r_versions[@]}"; do
 
         case "$variant" in
             xenial|bionic) template='ubuntu'
+            ;;
+            centos6|centos7) template='centos'
             ;;
         esac
 
