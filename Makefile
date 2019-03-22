@@ -1,8 +1,11 @@
 BASE_IMAGE ?= rstudio/r-base
 VERSIONS = 3.1 3.2 3.3 3.4 3.5
-VARIANTS = xenial bionic
+VARIANTS = xenial bionic centos6 centos7 opensuse42 opensuse15
 
 all: build-all test-all
+
+update-all-docker:
+	docker run -it --rm -v $(PWD):/r-docker -w /r-docker ubuntu:xenial /r-docker/update.sh
 
 update-all:
 	@./update.sh

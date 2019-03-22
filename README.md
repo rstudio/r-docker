@@ -31,6 +31,9 @@ make test-3.4-xenial
 2. Generate new Dockerfiles:
 ```bash
 make update-all
+
+# Or, using Docker
+make update-all-docker
 ```
 3. Build and test the new images locally
 4. Submit a pull request
