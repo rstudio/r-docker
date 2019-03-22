@@ -1,4 +1,4 @@
-FROM opensuse:42.3
+FROM opensuse/leap:42.3
 
 RUN zypper --non-interactive update
 RUN zypper --non-interactive --gpg-auto-import-keys -n install \
