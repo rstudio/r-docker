@@ -1,12 +1,12 @@
 # r-docker
 
 ### Tags
-- `3.1-xenial`, `3.1-bionic`
-- `3.2-xenial`, `3.2-bionic`
-- `3.3-xenial`, `3.3-bionic`
-- `3.4-xenial`, `3.4-bionic`
-- `3.5-xenial`, `3.5-bionic`
-- `xenial`, `bionic` (base images without R)
+- `3.1-xenial`, `3.1-bionic`, `3.1-centos6`, `3.1-centos7`, `3.1-opensuse42`, `3.1-opensuse15`
+- `3.2-xenial`, `3.2-bionic`, `3.2-centos6`, `3.2-centos7`, `3.2-opensuse42`, `3.2-opensuse15`
+- `3.3-xenial`, `3.3-bionic`, `3.3-centos6`, `3.3-centos7`, `3.3-opensuse42`, `3.3-opensuse15`
+- `3.4-xenial`, `3.4-bionic`, `3.4-centos6`, `3.4-centos7`, `3.4-opensuse42`, `3.4-opensuse15`
+- `3.5-xenial`, `3.5-bionic`, `3.5-centos6`, `3.5-centos7`, `3.5-opensuse42`, `3.5-opensuse15`
+- `xenial`, `bionic`, `centos6`, `centos7`, `opensuse42`, `opensuse15` (base images without R)
 
 ### Building Images
 ```bash
