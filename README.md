@@ -37,3 +37,16 @@ make update-all-docker
 ```
 3. Build and test the new images locally
 4. Submit a pull request
+
+### Rebuilding Images
+
+Rebuild images when the R build has been updated but there are no Dockerfile or base image changes.
+This ignores the Docker cache and reinstalls R in the image.
+
+```bash
+# rebuild all images
+make rebuild-all
+
+# Rebuild a specific image.
+make rebuild-3.4-xenial
+```
