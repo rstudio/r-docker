@@ -4,6 +4,7 @@ RUN zypper --non-interactive update
 RUN zypper --non-interactive --gpg-auto-import-keys -n install \
     fontconfig \
     gcc \
+    gcc-c++ \
     glibc-locale \
     libatlascpp-0_6-1 \
     libblas3 \
