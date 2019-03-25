@@ -17,10 +17,14 @@ define GEN_BUILD_R_IMAGES
 build-$(version)-$(variant): build-base-$(variant)
 	docker build -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
 
+rebuild-$(version)-$(variant): build-base-$(variant)
+	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
+
 test-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) /test/test.sh
 
 BUILD_R_IMAGES += build-$(version)-$(variant)
+REBUILD_R_IMAGES += rebuild-$(version)-$(variant)
 TEST_R_IMAGES += test-$(version)-$(variant)
 endef
 
@@ -29,6 +33,8 @@ $(foreach variant,$(VARIANTS), \
     $(eval $(GEN_BUILD_R_IMAGES)) \
   ) \
 )
+
+rebuild-all: $(REBUILD_R_IMAGES)
 
 build-all: $(BUILD_R_IMAGES)
 
