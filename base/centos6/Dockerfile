@@ -1,10 +1,6 @@
 FROM centos:centos6
 
 RUN yum -y update && \
-    yum -y install epel-release && \
-    yum clean all
-
-RUN yum -y update && \
     yum -y groupinstall "Development tools" && \
     yum -y install \
     gcc \
