@@ -1,16 +1,17 @@
 FROM centos:centos7
 
 RUN yum -y update && \
-    yum -y install epel-release && \
-    yum clean all
-
-RUN yum -y update && \
     yum -y groupinstall "Development tools" && \
     yum -y install \
     gcc \
+    libSM \
+    libXmu \
+    libXt \
     libcurl-devel \
     libicu \
+    libtiff \
     make \
+    pango \
     pcre2 \
     perl-Digest-MD5 \
     sudo \
