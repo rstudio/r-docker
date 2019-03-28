@@ -21,3 +21,16 @@ for (pkg in rownames(installed.packages(priority = c("base", "recommended")))) {
     stop(sprintf("failed to load built-in package %s", pkg))
   }
 }
+
+# Show capabilities. Warnings are returned on missing libraries.
+tryCatch(capabilities(), warning = function(w) {
+  print(capabilities())
+  stop(sprintf("missing libraries: %s", w$message))
+})
+
+# Check graphics devices
+for (dev in c("png", "jpeg", "tiff", "svg", "bmp", "pdf")) {
+  tryCatch(do.call(dev, args = list()), warning = function(w) {
+    stop(sprintf("graphics device %s failed: %s", dev, w$message))
+  })
+}
