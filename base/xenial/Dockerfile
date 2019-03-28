@@ -8,10 +8,16 @@ RUN apt-get update -qq && \
     gfortran \
     libatlas-base-dev \
     libbz2-dev \
+    libcairo2 \
     libcurl4-openssl-dev \
     libicu-dev \
     liblzma-dev \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
     libpcre3-dev \
+    libtiff5 \
+    libx11-6 \
+    libxt6 \
     locales \
     sudo \
     libtcl8.6 \
