@@ -29,8 +29,19 @@ tryCatch(capabilities(), warning = function(w) {
 })
 
 # Check graphics devices
-for (dev in c("png", "jpeg", "tiff", "svg", "bmp", "pdf")) {
-  tryCatch(do.call(dev, args = list()), warning = function(w) {
-    stop(sprintf("graphics device %s failed: %s", dev, w$message))
+for (dev_name in c("png", "jpeg", "tiff", "svg", "bmp", "pdf")) {
+  # Skip unsupported graphics devices (e.g. tiff in R 3.3 on CentOS 6)
+  if (dev_name %in% names(capabilities()) && capabilities(dev_name) == FALSE) {
+    next
+  }
+  dev <- getFromNamespace(dev_name, "grDevices")
+  tryCatch({
+    f <- tempfile()
+    on.exit(unlink(f))
+    dev(f)
+    plot(1)
+    dev.off()
+  }, warning = function(w) {
+    stop(sprintf("graphics device %s failed: %s", dev_name, w$message))
   })
 }
