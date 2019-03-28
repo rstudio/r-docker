@@ -21,3 +21,27 @@ for (pkg in rownames(installed.packages(priority = c("base", "recommended")))) {
     stop(sprintf("failed to load built-in package %s", pkg))
   }
 }
+
+# Show capabilities. Warnings are returned on missing libraries.
+tryCatch(capabilities(), warning = function(w) {
+  print(capabilities())
+  stop(sprintf("missing libraries: %s", w$message))
+})
+
+# Check graphics devices
+for (dev_name in c("png", "jpeg", "tiff", "svg", "bmp", "pdf")) {
+  # Skip unsupported graphics devices (e.g. tiff in R 3.3 on CentOS 6)
+  if (dev_name %in% names(capabilities()) && capabilities(dev_name) == FALSE) {
+    next
+  }
+  dev <- getFromNamespace(dev_name, "grDevices")
+  tryCatch({
+    f <- tempfile()
+    on.exit(unlink(f))
+    dev(f)
+    plot(1)
+    dev.off()
+  }, warning = function(w) {
+    stop(sprintf("graphics device %s failed: %s", dev_name, w$message))
+  })
+}
