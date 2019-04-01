@@ -2,23 +2,26 @@ FROM opensuse/leap:15.0
 
 RUN zypper --non-interactive update
 RUN zypper --non-interactive --gpg-auto-import-keys -n install \
+    atlascpp-devel \
+    blas-devel \
     fontconfig \
     gcc \
     gcc-c++ \
+    gcc-fortran \
     glibc-locale \
     gzip \
-    libatlascpp-0_6-1 \
-    libblas3 \
+    lapack-devel \
     libcairo2 \
+    libcurl-devel \
     libfreetype6 \
     libgomp1 \
-    libicu60_2 \
+    libicu-devel \
     libjpeg62 \
-    liblapack3 \
     libreadline6 \
     libtiff5 \
     make \
     pango-tools \
+    pcre-devel \
     sudo \
     tar \
     tcl \
@@ -29,6 +32,8 @@ RUN zypper --non-interactive --gpg-auto-import-keys -n install \
     xorg-x11 \
     xorg-x11-fonts-100dpi \
     xorg-x11-fonts-75dpi \
+    xz-devel \
+    zlib-devel \
     && zypper clean
 
 # Install TinyTeX
