@@ -7,14 +7,14 @@ RUN apt-get update -qq && \
     curl \
     gfortran \
     libatlas-base-dev \
-    libbz2-1.0 \
+    libbz2-dev \
     libcairo2 \
-    libcurl3 \
-    libicu55 \
-    liblzma5 \
+    libcurl4-openssl-dev \
+    libicu-dev \
+    liblzma-dev \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
-    libpcre3 \
+    libpcre3-dev \
     libtcl8.6 \
     libtiff5 \
     libtk8.6 \
@@ -24,7 +24,7 @@ RUN apt-get update -qq && \
     sudo \
     tzdata \
     wget \
-    zlib1g
+    zlib1g-dev
 
 # Install TinyTeX
 RUN wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh -s - --admin --no-path && \
