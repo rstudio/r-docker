@@ -11,6 +11,7 @@ RUN zypper --non-interactive --gpg-auto-import-keys -n install \
     glibc-locale \
     gzip \
     lapack-devel \
+    libbz2-devel \
     libcairo2 \
     libcurl-devel \
     libfreetype6 \
