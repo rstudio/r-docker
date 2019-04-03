@@ -30,6 +30,14 @@ RUN yum -y update && \
     zlib-devel && \
     yum clean all
 
+# Redhat Software Collections for updated C++
+RUN yum install -y centos-release-scl && \
+    yum upgrade -y && \
+    yum install -y devtoolset-8-gcc devtoolset-8-gcc-c++
+
+# Permanently enable newer C/C++ \
+COPY scl_enable.sh /etc/profile.d/scl_enable.sh
+
 # Install pandoc
 RUN mkdir -p /opt/pandoc && \
     wget -O /opt/pandoc/pandoc.gz https://files.r-hub.io/pandoc/linux-64/pandoc.gz && \
