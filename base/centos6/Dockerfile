@@ -30,6 +30,16 @@ RUN yum -y update && \
     zlib-devel && \
     yum clean all
 
+# CentOS 6 ships with an older version of C++, which is too old for
+# compiling may R packages.
+#
+# This installs an updated software that provides neweer versions of
+# C/C++.
+#
+# See these references:
+# https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/3.2_release_notes/chap-usage#sect-Usage-Use
+# https://access.redhat.com/solutions/527703
+#
 # Redhat Software Collections for updated C++
 RUN yum install -y centos-release-scl && \
     yum upgrade -y && \
