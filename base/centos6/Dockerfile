@@ -31,10 +31,8 @@ RUN yum -y update && \
     yum clean all
 
 # CentOS 6 ships with an older version of C++, which is too old for
-# compiling may R packages.
-#
-# This installs an updated software that provides neweer versions of
-# C/C++.
+# compiling many R packages. This installs an updated software collection
+# that provides newer versions of C/C++.
 #
 # See these references:
 # https://access.redhat.com/documentation/en-us/red_hat_software_collections/3/html/3.2_release_notes/chap-usage#sect-Usage-Use
