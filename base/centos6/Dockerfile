@@ -6,8 +6,6 @@ RUN yum -y update && \
     atlas-devel \
     blas-devel \
     bzip2-devel \
-    gcc \
-    gcc-gfortran \
     lapack-devel \
     libSM \
     libXmu \
@@ -41,7 +39,10 @@ RUN yum -y update && \
 # Redhat Software Collections for updated C++
 RUN yum install -y centos-release-scl && \
     yum upgrade -y && \
-    yum install -y devtoolset-8-gcc devtoolset-8-gcc-c++
+    yum install -y devtoolset-8-gcc \
+    devtoolset-8-gcc-c++ \
+    devtoolset-8-gcc-gfortran && \
+    yum clean all
 
 # Permanently enable newer C/C++ \
 COPY scl_enable.sh /etc/profile.d/scl_enable.sh
