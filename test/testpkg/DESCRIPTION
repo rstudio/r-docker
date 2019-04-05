@@ -1,0 +1,12 @@
+Package: testpkg
+Type: Package
+Title: A Test Package
+Version: 0.1.0
+Authors@R: person("Test", "Pkg", email = "test@test", role = c("aut", "cre"))
+Description: A test package.
+License: MIT
+Depends:
+    R (>= 3.1)
+SystemRequirements: C++11
+RoxygenNote: 6.1.1
+Encoding: UTF-8
