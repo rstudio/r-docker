@@ -15,6 +15,12 @@ if (length(OlsonNames()) == 0) {
   stop("Time zone database not found")
 }
 
+# Check that we're in a UTF-8 native locale (e.g. LANG=C.UTF-8 or LANG=en_US.UTF-8)
+# https://stat.ethz.ch/R-manual/R-devel/library/base/html/locales.html
+if (!l10n_info()[["UTF-8"]]) {
+  stop("not in a UTF-8 native locale")
+}
+
 # Check that built-in packages can be loaded
 for (pkg in rownames(installed.packages(priority = c("base", "recommended")))) {
   if (!require(pkg, character.only = TRUE)) {
