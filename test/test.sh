@@ -4,6 +4,7 @@ set -ex
 DIR="$(dirname "$(readlink -f "$BASH_SOURCE")")"
 
 R --version
+Rscript -e 'sessionInfo()'
 
 # R devel dependencies
 gcc --version
