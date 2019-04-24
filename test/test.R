@@ -45,3 +45,12 @@ for (dev_name in c("png", "jpeg", "tiff", "svg", "bmp", "pdf")) {
     stop(sprintf("graphics device %s failed: %s", dev_name, w$message))
   })
 }
+
+# Check for unexpected output from graphics/text rendering.
+# Run externally to capture output from external processes.
+# For example, "Pango-WARNING **: failed to choose a font, expect ugly output"
+# messages when rendering text without any system fonts installed.
+output <- system2("Rscript", "-e 'png(tempfile()); plot(1)'", stdout = TRUE, stderr = TRUE)
+if (length(output) > 0) {
+  stop(sprintf("unexpected output returned from plotting:\n%s", paste(output, collapse = "\n")))
+}

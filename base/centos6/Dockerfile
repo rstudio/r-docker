@@ -6,6 +6,7 @@ RUN yum -y update && \
     atlas-devel \
     blas-devel \
     bzip2-devel \
+    dejavu-sans-fonts \
     lapack-devel \
     libSM \
     libXmu \
