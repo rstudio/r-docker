@@ -29,19 +29,27 @@ tryCatch(capabilities(), warning = function(w) {
 })
 
 # Check graphics devices
-for (dev_name in c("png", "jpeg", "tiff", "svg", "bmp", "pdf")) {
-  # Skip unsupported graphics devices (e.g. tiff in R 3.3 on CentOS 6)
+# https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/Devices.html
+for (dev_name in c("png", "jpeg", "tiff", "svg", "bmp", "pdf", "postscript",
+                   "xfig", "pictex", "cairo_pdf", "cairo_ps")) {
+  # Skip unsupported graphics devices (e.g. tiff in R >= 3.3 on CentOS 6)
   if (dev_name %in% names(capabilities()) && capabilities(dev_name) == FALSE) {
     next
   }
   dev <- getFromNamespace(dev_name, "grDevices")
   tryCatch({
-    f <- tempfile()
-    on.exit(unlink(f))
-    dev(f)
+    file <- tempfile()
+    on.exit(unlink(file))
+    if (dev_name == "xfig") {
+      # Suppress warning from xfig when onefile = FALSE (the default)
+      dev(file, onefile = TRUE)
+    } else {
+      dev(file)
+    }
     plot(1)
     dev.off()
   }, warning = function(w) {
+    # Catch errors which manifest as warnings (e.g. "failed to load cairo DLL")
     stop(sprintf("graphics device %s failed: %s", dev_name, w$message))
   })
 }
