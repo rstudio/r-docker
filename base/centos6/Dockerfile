@@ -58,3 +58,6 @@ RUN mkdir -p /opt/pandoc && \
     gzip -d /opt/pandoc/pandoc-citeproc.gz && \
     chmod +x /opt/pandoc/pandoc-citeproc && \
     ln -s /opt/pandoc/pandoc-citeproc /usr/bin/pandoc-citeproc
+
+# Set default locale
+ENV LANG en_US.UTF-8
