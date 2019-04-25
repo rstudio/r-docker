@@ -76,3 +76,10 @@ if ("libcurl" %in% names(capabilities())) {
 tmpfile <- tempfile()
 write.csv("test", tmpfile)
 download.file(sprintf("file://%s", tmpfile), tempfile(), "internal")
+
+# Check that a pager is configured and help pages work
+# https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.show.html
+output <- system2("Rscript", "-e 'help(stats)'", stdout = TRUE)
+if (length(output) == 0) {
+  stop("failed to display help pages; check that a pager is configured properly")
+}
