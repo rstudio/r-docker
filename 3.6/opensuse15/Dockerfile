@@ -5,10 +5,10 @@
 #
 
 ARG BASE_IMAGE=rstudio/r-base
-FROM ${BASE_IMAGE}:centos6
+FROM ${BASE_IMAGE}:opensuse15
 
-ARG R_VERSION=3.3.3
-ARG OS_IDENTIFIER=centos-6
+ARG R_VERSION=3.6.0
+ARG OS_IDENTIFIER=opensuse-15
 
 # Install R
 RUN wget -O R-${R_VERSION}.tar.gz https://cdn.rstudio.com/r/${OS_IDENTIFIER}/R-${R_VERSION}-${OS_IDENTIFIER}.tar.gz && \
@@ -18,11 +18,5 @@ RUN wget -O R-${R_VERSION}.tar.gz https://cdn.rstudio.com/r/${OS_IDENTIFIER}/R-$
     ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/bin/Rscript && \
     ln -s /opt/R/${R_VERSION}/lib/R /usr/lib/R && \
     rm R-${R_VERSION}.tar.gz
-
-# Add support for installing packages with C++11
-RUN echo $'CXX11 = g++\n\
-CXX11FLAGS = -g -O2 $(LTO)\n\
-CXX11PICFLAGS = -fpic\n\
-CXX11STD = -std=gnu++11\n' >> $(R RHOME)/etc/Makevars.site
 
 CMD ["R"]
