@@ -6,52 +6,53 @@ distributions. These Docker images are built to use those R binaries. *The
 images are intentionally minimal, their primary purpose is to serve as the
 basis for other images requiring R.* 
 
-Users looking for an easy way to quickly get started with R or RStudio should
+For a quick way to get started with R or RStudio, 
 refer to the [Rocker project](https://www.rocker-project.org/).
 
+> *WARNING*: These images are considered experimental, and may change. They should
+> not be used for strictly reproducible environments (yet!). 
 
 ### Sample Usage
 
 These images can be used to execute R:
 
 ```
-docker run --rm -it rstudio/r-docker:3.5-trusty R
+docker run --rm -it rstudio/r-base:3.5-xenial
 ```
 
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
 ```
-FROM rstudio/r-docker:3.5-xenial
+FROM rstudio/r-base:3.5-xenial
 ```
 
 ### Releases and Tags
-
-> *WARNING*: As of May 2019, these images are considered experimental, and may change. They should
-> not be used for strictly reproducible environments (yet!). 
 
 The images follow these tag patterns: 
 
 | Pattern | Example | Description |
 | --- | --- | --- | 
-| `rstudio/r-docker:distribution` | `rstudio/r-docker:centos7` |  Contains a base operating system as well as system pre-requirements required by R. |
-| `rstudio/r-docker:x.y.z-distribution` | `rstudio/r-docker:3.5.2-centos7` | Contains R version `x.y.z` on the specified OS |
-| `rstudio/r-docker:x.y-distribution` | `rstudio/r-docker:3.5-centos7` | Contains the latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, when R 3.5.3 is released, `rstudio/r-docker:3.5-centos7` would switch from containing R 3.5.2 to R 3.5.3.|
+| `rstudio/r-base:distro` | `rstudio/r-base:centos7` |  Base operating system + system libraries required by R. |
+| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:3.5.2-centos7` | R version `x.y.z` on the specified OS |
+| `rstudio/r-base:x.y-distro` | `rstudio/r-base:3.5-centos7` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, when R 3.5.3 is released, `rstudio/r-base:3.5-centos7` would switch from containing R 3.5.2 to R 3.5.3.|
 
 
 The following distributions are supported:  
 
-| Distributions |
-| ------------- |
-| xenial        |
-| bionic        |
-| centos6       |
-| centos7       |
-| opensuse42    |
-| opensuse15    |
+| Distributions | Full Name |
+| ------------- |-----------|
+| xenial        | Ubuntu 16.04 |
+| bionic        | Ubuntu 18.05 |
+| centos6       | CentOS 6 |
+| centos7       | CentOS 7 |
+| opensuse42    | OpenSUSE 42.3 |
+| opensuse15    | OpenSUSE 15.1 |
 
+All versions of R on the [RStudio CDN](https://cdn.rstudio.com/r/versions.json)
+are supported, though there may be some delay between the release of R and the
+release of the Docker image.
 
-New images are updated as soon as possible following an R release and R build.
 New operating systems are added on a less frequent basis. 
 
 
