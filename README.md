@@ -43,7 +43,7 @@ The following distributions are supported:
 | Distributions | Full Name |
 | ------------- |-----------|
 | xenial        | Ubuntu 16.04 |
-| bionic        | Ubuntu 18.05 |
+| bionic        | Ubuntu 18.04 |
 | centos6       | CentOS 6 |
 | centos7       | CentOS 7 |
 | opensuse42    | OpenSUSE 42.3 |
