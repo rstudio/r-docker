@@ -1,12 +1,98 @@
-# r-docker
+# RStudio R Docker Images
 
-### Tags
-- `3.1-xenial`, `3.1-bionic`, `3.1-centos6`, `3.1-centos7`, `3.1-opensuse42`, `3.1-opensuse15`
-- `3.2-xenial`, `3.2-bionic`, `3.2-centos6`, `3.2-centos7`, `3.2-opensuse42`, `3.2-opensuse15`
-- `3.3-xenial`, `3.3-bionic`, `3.3-centos6`, `3.3-centos7`, `3.3-opensuse42`, `3.3-opensuse15`
-- `3.4-xenial`, `3.4-bionic`, `3.4-centos6`, `3.4-centos7`, `3.4-opensuse42`, `3.4-opensuse15`
-- `3.5-xenial`, `3.5-bionic`, `3.5-centos6`, `3.5-centos7`, `3.5-opensuse42`, `3.5-opensuse15`
-- `xenial`, `bionic`, `centos6`, `centos7`, `opensuse42`, `opensuse15` (base images without R)
+RStudio creates and [distributes an opinionated set of R
+binaries](https://github.com/rstudio/r-builds) for different Linux
+distributions. These Docker images are built to use those R binaries. *The
+images are intentionally minimal, their primary purpose is to serve as the
+basis for other images requiring R.* 
+
+For a quick way to get started with R or RStudio, 
+refer to the [Rocker project](https://www.rocker-project.org/).
+
+> *WARNING*: These images are considered experimental, and may change. They should
+> not be used for strictly reproducible environments (yet!). 
+
+### Sample Usage
+
+These images can be used to execute R:
+
+```
+docker run --rm -it rstudio/r-base:3.5-xenial
+```
+
+These images can also be used as the basis for other custom images. To get
+started, use an image as the base in a Dockerfile:
+
+```
+FROM rstudio/r-base:3.5-xenial
+```
+
+### Releases and Tags
+
+The images follow these tag patterns: 
+
+| Pattern | Example | Description |
+| --- | --- | --- | 
+| `rstudio/r-base:distro` | `rstudio/r-base:centos7` |  Base operating system + system libraries required by R. |
+| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:3.5.2-centos7` | R version `x.y.z` on the specified OS |
+| `rstudio/r-base:x.y-distro` | `rstudio/r-base:3.5-centos7` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, when R 3.5.3 is released, `rstudio/r-base:3.5-centos7` would switch from containing R 3.5.2 to R 3.5.3.|
+
+
+The following distributions are supported:  
+
+| Distributions | Full Name |
+| ------------- |-----------|
+| xenial        | Ubuntu 16.04 |
+| bionic        | Ubuntu 18.04 |
+| centos6       | CentOS 6 |
+| centos7       | CentOS 7 |
+| opensuse42    | OpenSUSE 42.3 |
+| opensuse15    | OpenSUSE 15.1 |
+
+All versions of R on the [RStudio CDN](https://cdn.rstudio.com/r/versions.json)
+are supported, though there may be some delay between the release of R and the
+release of the Docker image.
+
+New operating systems are added on a less frequent basis. 
+
+
+### What is R?
+
+R is a language and environment for statistical computing and graphics. For more information:
+
+- [R Home](https://www.r-project.org/about.html)
+- [R for Data Science](https://r4ds.had.co.nz/) 
+
+### Resources
+
+- [Using Docker with R](https://environments.rstudio.com/docker)
+- [Using Docker with RStudio Server Pro](https://solutions.rstudio.com/launcher/overview/) 
+
+### Support
+
+RStudio does not provide professional support for these images or the R
+language. The best place to ask questions and provide feedback is the [RStudio
+Community]().
+
+### License
+
+View license information for [R](https://www.r-project.org/Licenses/).
+
+
+---
+
+# Developer Resources
+
+The following section contains information for those wishing to build these
+images themselves.
+
+In general, the structure consists of the following:
+
+- `base`: Base images that start with a minimal OS and add the necessary system
+  requirements required by R.
+- `x.y`: Images for each major.minor version of R. These images start from the
+  `base` images and add R, copied from the RStudio CDN. 
+
 
 ### Building Images
 ```bash
