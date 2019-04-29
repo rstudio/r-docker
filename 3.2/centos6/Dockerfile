@@ -19,4 +19,10 @@ RUN wget -O R-${R_VERSION}.tar.gz https://cdn.rstudio.com/r/${OS_IDENTIFIER}/R-$
     ln -s /opt/R/${R_VERSION}/lib/R /usr/lib/R && \
     rm R-${R_VERSION}.tar.gz
 
+# Add support for installing packages with C++11
+RUN echo $'CXX11 = g++\n\
+CXX11FLAGS = -g -O2 $(LTO)\n\
+CXX11PICFLAGS = -fpic\n\
+CXX11STD = -std=gnu++11\n' >> $(R RHOME)/etc/Makevars.site
+
 CMD ["R"]

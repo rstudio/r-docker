@@ -7,6 +7,7 @@ declare -A r_versions=(
     [3.3]='3.3.3'
     [3.4]='3.4.4'
     [3.5]='3.5.3'
+    [3.6]='3.6.0'
 )
 
 declare -A os_identifiers=(
@@ -38,7 +39,9 @@ for version in "${!r_versions[@]}"; do
         case "$variant" in
             xenial|bionic) template='ubuntu'
             ;;
-            centos6|centos7) template='centos'
+            centos6) template='centos6'
+            ;;
+            centos7) template='centos'
             ;;
             opensuse42|opensuse15) template='opensuse'
             ;;

@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:centos6
 
-ARG R_VERSION=3.3.3
+ARG R_VERSION=3.6.0
 ARG OS_IDENTIFIER=centos-6
 
 # Install R
