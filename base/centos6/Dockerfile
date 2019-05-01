@@ -45,8 +45,14 @@ RUN yum install -y centos-release-scl && \
     devtoolset-8-gcc-gfortran && \
     yum clean all
 
-# Permanently enable newer C/C++ \
-COPY scl_enable.sh /etc/profile.d/scl_enable.sh
+# Permanently enable newer C/C++ for interactive and non-interactive use.
+# Note that this works for RUN instructions using the shell form only.
+# RUN instructions using the executable form can enable the newer C/C++ like:
+# RUN ["/usr/bin/scl_enable.sh", "gcc", "--version"]
+COPY scl_enable.sh /usr/bin/scl_enable.sh
+SHELL ["/usr/bin/scl_enable.sh", "/bin/sh", "-c"]
+ENTRYPOINT ["/usr/bin/scl_enable.sh"]
+CMD ["/bin/bash"]
 
 # Install pandoc
 RUN mkdir -p /opt/pandoc && \
