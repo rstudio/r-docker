@@ -69,7 +69,10 @@ if (length(output) > 0) {
   stop(sprintf("unexpected output returned from plotting:\n%s", paste(output, collapse = "\n")))
 }
 
-# Check libcurl support (R >= 3.2)
+# Check download methods: libcurl (supported in R >= 3.2) and internal (based on libxml)
 if ("libcurl" %in% names(capabilities())) {
   download.file("https://cloud.r-project.org", tempfile(), "libcurl")
 }
+tmpfile <- tempfile()
+write.csv("test", tmpfile)
+download.file(sprintf("file://%s", tmpfile), tempfile(), "internal")
