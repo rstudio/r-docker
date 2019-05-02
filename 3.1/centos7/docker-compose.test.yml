@@ -1,0 +1,5 @@
+sut:
+  build: .
+  volumes:
+    - ../../test:/test
+  command: /test/test.sh
