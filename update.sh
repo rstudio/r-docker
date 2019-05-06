@@ -56,5 +56,7 @@ for version in "${!r_versions[@]}"; do
             -e "s/%%R_VERSION%%/${r_versions[$version]}/" \
             -e "s/%%OS_IDENTIFIER%%/${os_identifiers[$variant]}/" \
             "$dir/Dockerfile"
+
+        cp docker-compose.test.yml $dir
     done
 done
