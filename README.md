@@ -72,7 +72,7 @@ R is a language and environment for statistical computing and graphics. For more
 
 RStudio does not provide professional support for these images or the R
 language. The best place to ask questions and provide feedback is the [RStudio
-Community]().
+Community](https://community.rstudio.com/).
 
 ### License
 
