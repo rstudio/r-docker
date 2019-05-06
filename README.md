@@ -47,7 +47,7 @@ The following distributions are supported:
 | centos6       | CentOS 6 |
 | centos7       | CentOS 7 |
 | opensuse42    | OpenSUSE 42.3 |
-| opensuse15    | OpenSUSE 15.1 |
+| opensuse15    | OpenSUSE 15.0 |
 
 All versions of R on the [RStudio CDN](https://cdn.rstudio.com/r/versions.json)
 are supported, though there may be some delay between the release of R and the
