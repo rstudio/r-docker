@@ -34,8 +34,8 @@ The images follow these tag patterns:
 | Pattern | Example | Description |
 | --- | --- | --- | 
 | `rstudio/r-base:distro` | `rstudio/r-base:centos7` |  Base operating system + system libraries required by R. |
-| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:3.5.2-centos7` | R version `x.y.z` on the specified OS |
-| `rstudio/r-base:x.y-distro` | `rstudio/r-base:3.5-centos7` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, when R 3.5.3 is released, `rstudio/r-base:3.5-centos7` would switch from containing R 3.5.2 to R 3.5.3.|
+| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:3.5.3-centos7` | R version `x.y.z` on the specified OS |
+| `rstudio/r-base:x.y-distro` | `rstudio/r-base:3.5-centos7` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 3.5.4 is released, `rstudio/r-base:3.5-centos7` would switch from containing R 3.5.3 to R 3.5.4.|
 
 
 The following distributions are supported:  
