@@ -49,9 +49,11 @@ The following distributions are supported:
 | opensuse42    | openSUSE 42.3 |
 | opensuse15    | openSUSE 15.0 |
 
-All versions of R on the [RStudio CDN](https://cdn.rstudio.com/r/versions.json)
-are supported, though there may be some delay between the release of R and the
-release of the Docker image.
+All minor versions of R since 3.1 are supported, on the latest patch release.
+
+New versions of R are added when they're available on the
+[RStudio CDN](https://cdn.rstudio.com/r/versions.json), though there may be
+some delay between the release of R and the release of the Docker image.
 
 New operating systems are added on a less frequent basis. 
 
