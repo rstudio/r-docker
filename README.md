@@ -23,7 +23,7 @@ docker run --rm -it rstudio/r-base:3.5-xenial
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
-```
+```dockerfile
 FROM rstudio/r-base:3.5-xenial
 ```
 
