@@ -21,6 +21,11 @@ if (!l10n_info()[["UTF-8"]]) {
   stop("not in a UTF-8 native locale")
 }
 
+# Check iconv support
+if (!capabilities("iconv") || !all(c("ASCII", "LATIN1", "UTF-8") %in% iconvlist())) {
+  stop("missing iconv support")
+}
+
 # Check that built-in packages can be loaded
 for (pkg in rownames(installed.packages(priority = c("base", "recommended")))) {
   if (!require(pkg, character.only = TRUE)) {
