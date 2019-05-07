@@ -23,7 +23,7 @@ docker run --rm -it rstudio/r-base:3.5-xenial
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
-```
+```dockerfile
 FROM rstudio/r-base:3.5-xenial
 ```
 
@@ -34,24 +34,26 @@ The images follow these tag patterns:
 | Pattern | Example | Description |
 | --- | --- | --- | 
 | `rstudio/r-base:distro` | `rstudio/r-base:centos7` |  Base operating system + system libraries required by R. |
-| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:3.5.2-centos7` | R version `x.y.z` on the specified OS |
-| `rstudio/r-base:x.y-distro` | `rstudio/r-base:3.5-centos7` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, when R 3.5.3 is released, `rstudio/r-base:3.5-centos7` would switch from containing R 3.5.2 to R 3.5.3.|
+| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:3.5.3-centos7` | R version `x.y.z` on the specified OS |
+| `rstudio/r-base:x.y-distro` | `rstudio/r-base:3.5-centos7` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 3.5.4 is released, `rstudio/r-base:3.5-centos7` would switch from containing R 3.5.3 to R 3.5.4.|
 
 
 The following distributions are supported:  
 
-| Distributions | Full Name |
+| Distribution  | Full Name |
 | ------------- |-----------|
 | xenial        | Ubuntu 16.04 |
 | bionic        | Ubuntu 18.04 |
 | centos6       | CentOS 6 |
 | centos7       | CentOS 7 |
-| opensuse42    | OpenSUSE 42.3 |
-| opensuse15    | OpenSUSE 15.1 |
+| opensuse42    | openSUSE 42.3 |
+| opensuse15    | openSUSE 15.0 |
 
-All versions of R on the [RStudio CDN](https://cdn.rstudio.com/r/versions.json)
-are supported, though there may be some delay between the release of R and the
-release of the Docker image.
+All minor versions of R since 3.1 are supported, on the latest patch release.
+
+New versions of R are added when they're available on the
+[RStudio CDN](https://cdn.rstudio.com/r/versions.json), though there may be
+some delay between the release of R and the release of the Docker image.
 
 New operating systems are added on a less frequent basis. 
 
@@ -72,7 +74,7 @@ R is a language and environment for statistical computing and graphics. For more
 
 RStudio does not provide professional support for these images or the R
 language. The best place to ask questions and provide feedback is the [RStudio
-Community]().
+Community](https://community.rstudio.com/).
 
 ### License
 
