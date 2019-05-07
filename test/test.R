@@ -21,6 +21,11 @@ if (!l10n_info()[["UTF-8"]]) {
   stop("not in a UTF-8 native locale")
 }
 
+# Check iconv support
+if (!capabilities("iconv") || !all(c("ASCII", "LATIN1", "UTF-8") %in% iconvlist())) {
+  stop("missing iconv support")
+}
+
 # Check that built-in packages can be loaded
 for (pkg in rownames(installed.packages(priority = c("base", "recommended")))) {
   if (!require(pkg, character.only = TRUE)) {
@@ -76,3 +81,10 @@ if ("libcurl" %in% names(capabilities())) {
 tmpfile <- tempfile()
 write.csv("test", tmpfile)
 download.file(sprintf("file://%s", tmpfile), tempfile(), "internal")
+
+# Check that a pager is configured and help pages work
+# https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.show.html
+output <- system2("Rscript", "-e 'help(stats)'", stdout = TRUE)
+if (length(output) == 0) {
+  stop("failed to display help pages; check that a pager is configured properly")
+}
