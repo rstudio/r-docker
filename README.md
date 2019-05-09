@@ -83,7 +83,7 @@ View license information for [R](https://www.r-project.org/Licenses/).
 
 ---
 
-# Developer Resources
+## Developer Resources
 
 The following section contains information for those wishing to build these
 images themselves.
@@ -117,12 +117,12 @@ make test-3.4-xenial
 ### Updating Images
 1. Update [`update.sh`](update.sh) and [Makefile](Makefile) with the new distro or R version
 2. Generate new Dockerfiles:
-```bash
-make update-all
+    ```bash
+    make update-all
 
-# Or, using Docker
-make update-all-docker
-```
+    # Or, using Docker
+    make update-all-docker
+    ```
 3. Build and test the new images locally
 4. Submit a pull request
 
