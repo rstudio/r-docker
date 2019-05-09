@@ -1,0 +1,98 @@
+version: 2.1
+
+build-images: &build-images
+  parameters:
+    publish:
+      type: boolean
+      default: false
+  machine: true
+  steps:
+    - checkout
+    - run:
+        name: Docker login
+        command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+    - run:
+        name: Pull cached images
+        command: make pull-base-$VARIANT
+    - run:
+        name: Build images
+        command: make build-all VARIANTS=$VARIANT VERSIONS="$VERSIONS"
+    - run:
+        name: Test images
+        command: make test-all VARIANTS=$VARIANT VERSIONS="$VERSIONS"
+    - when:
+        condition: << parameters.publish >>
+        steps:
+          - run:
+              name: Publish images
+              command: make push-all VARIANTS=$VARIANT VERSIONS="$VERSIONS"
+
+branch-master: &branch-master
+  publish: true
+  filters:
+    branches:
+      only: master
+
+branch-default: &branch-default
+  publish: false
+  filters:
+    branches:
+      ignore: master
+
+jobs:
+  xenial:
+    <<: *build-images
+    environment:
+      VARIANT: xenial
+  bionic:
+    <<: *build-images
+    environment:
+      VARIANT: bionic
+  centos6:
+    <<: *build-images
+    environment:
+      VARIANT: centos6
+  centos7:
+    <<: *build-images
+    environment:
+      VARIANT: centos7
+  opensuse42:
+    <<: *build-images
+    environment:
+      VARIANT: opensuse42
+  opensuse15:
+    <<: *build-images
+    environment:
+      VARIANT: opensuse15
+  
+
+workflows:
+  version: 2
+  build-default:
+    jobs:
+      - xenial:
+          <<: *branch-default
+      - bionic:
+          <<: *branch-default
+      - centos6:
+          <<: *branch-default
+      - centos7:
+          <<: *branch-default
+      - opensuse42:
+          <<: *branch-default
+      - opensuse15:
+          <<: *branch-default
+  build-master:
+    jobs:
+      - xenial:
+          <<: *branch-master
+      - bionic:
+          <<: *branch-master
+      - centos6:
+          <<: *branch-master
+      - centos7:
+          <<: *branch-master
+      - opensuse42:
+          <<: *branch-master
+      - opensuse15:
+          <<: *branch-master
