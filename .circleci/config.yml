@@ -9,12 +9,6 @@ build-images: &build-images
   steps:
     - checkout
     - run:
-        name: Docker login
-        command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-    - run:
-        name: Pull cached images
-        command: make pull-base-$VARIANT
-    - run:
         name: Build images
         command: make build-all VARIANTS=$VARIANT VERSIONS="$VERSIONS"
     - run:
@@ -23,6 +17,9 @@ build-images: &build-images
     - when:
         condition: << parameters.publish >>
         steps:
+          - run:
+              name: Docker login
+              command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
           - run:
               name: Publish images
               command: make push-all VARIANTS=$VARIANT VERSIONS="$VERSIONS"
