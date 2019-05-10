@@ -10,10 +10,10 @@ build-images: &build-images
     - checkout
     - run:
         name: Build images
-        command: make build-all VARIANTS=$VARIANT VERSIONS="$VERSIONS"
+        command: make build-all VARIANTS=$VARIANT
     - run:
         name: Test images
-        command: make test-all VARIANTS=$VARIANT VERSIONS="$VERSIONS"
+        command: make test-all VARIANTS=$VARIANT
     - when:
         condition: << parameters.publish >>
         steps:
@@ -22,7 +22,7 @@ build-images: &build-images
               command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
           - run:
               name: Publish images
-              command: make push-all VARIANTS=$VARIANT VERSIONS="$VERSIONS"
+              command: make push-all VARIANTS=$VARIANT
 
 branch-master: &branch-master
   publish: true
