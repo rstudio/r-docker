@@ -34,7 +34,7 @@ RUN zypper --non-interactive --gpg-auto-import-keys -n install \
     xorg-x11-fonts-75dpi \
     xz-devel \
     zlib-devel \
-    && zypper clean
+    && zypper clean --all
 
 # Install TinyTeX
 RUN wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh -s - --admin --no-path && \
