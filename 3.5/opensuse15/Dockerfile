@@ -6,6 +6,7 @@
 
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:opensuse15
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 ARG R_VERSION=3.5.3
 ARG OS_IDENTIFIER=opensuse-15

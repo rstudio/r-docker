@@ -6,6 +6,7 @@
 
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:bionic
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 ARG R_VERSION=3.4.4
 ARG OS_IDENTIFIER=ubuntu-1804
