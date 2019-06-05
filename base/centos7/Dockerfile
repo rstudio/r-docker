@@ -1,4 +1,5 @@
 FROM centos:centos7
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN yum -y update && \
     yum -y groupinstall "Development tools" && \

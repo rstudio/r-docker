@@ -1,5 +1,6 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:%%VARIANT%%
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 ARG R_VERSION=%%R_VERSION%%
 ARG OS_IDENTIFIER=%%OS_IDENTIFIER%%

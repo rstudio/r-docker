@@ -1,4 +1,5 @@
 FROM opensuse/leap:15.0
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN zypper --non-interactive update
 RUN zypper --non-interactive --gpg-auto-import-keys -n install \

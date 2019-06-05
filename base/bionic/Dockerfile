@@ -1,5 +1,7 @@
 FROM ubuntu:bionic
 
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
+
 RUN apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     apt-transport-https \
