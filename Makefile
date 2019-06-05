@@ -29,6 +29,9 @@ rebuild-$(version)-$(variant): build-base-$(variant)
 test-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
 
+bash-$(version)-$(variant):
+	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
+
 pull-$(version)-$(variant):
 	docker pull $(BASE_IMAGE):$(version)-$(variant)
 
