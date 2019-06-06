@@ -6,7 +6,6 @@
 
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:centos7
-LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 ARG R_VERSION=3.5.3
 ARG OS_IDENTIFIER=centos-7
