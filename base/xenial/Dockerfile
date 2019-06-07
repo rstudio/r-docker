@@ -1,4 +1,5 @@
 FROM ubuntu:xenial
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -24,7 +25,8 @@ RUN apt-get update -qq && \
     sudo \
     tzdata \
     wget \
-    zlib1g-dev
+    zlib1g-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install TinyTeX
 RUN wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh -s - --admin --no-path && \

@@ -1,4 +1,5 @@
 FROM centos:centos6
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN yum -y update && \
     yum -y groupinstall "Development tools" && \
@@ -8,12 +9,12 @@ RUN yum -y update && \
     bzip2-devel \
     dejavu-sans-fonts \
     lapack-devel \
-    libSM \
-    libXmu \
-    libXt \
     libcurl-devel \
     libicu-devel \
+    libSM \
     libtiff \
+    libXmu \
+    libXt \
     make \
     pango \
     pcre-devel \

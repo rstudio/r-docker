@@ -1,4 +1,5 @@
 FROM centos:centos7
+LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN yum -y update && \
     yum -y groupinstall "Development tools" && \
@@ -9,12 +10,12 @@ RUN yum -y update && \
     gcc \
     gcc-gfortran \
     lapack-devel \
-    libSM \
-    libXmu \
-    libXt \
     libcurl-devel \
     libicu-devel \
+    libSM \
     libtiff \
+    libXmu \
+    libXt \
     make \
     pango \
     pcre-devel \
