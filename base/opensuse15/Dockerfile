@@ -3,15 +3,12 @@ LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN zypper --non-interactive update
 RUN zypper --non-interactive --gpg-auto-import-keys -n install \
-    atlascpp-devel \
-    blas-devel \
     fontconfig \
     gcc \
     gcc-c++ \
     gcc-fortran \
     glibc-locale \
     gzip \
-    lapack-devel \
     libbz2-devel \
     libcairo2 \
     libcurl-devel \
@@ -22,6 +19,7 @@ RUN zypper --non-interactive --gpg-auto-import-keys -n install \
     libreadline6 \
     libtiff5 \
     make \
+    openblas-devel \
     pango-tools \
     pcre-devel \
     sudo \

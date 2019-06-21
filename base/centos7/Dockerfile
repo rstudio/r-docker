@@ -4,12 +4,9 @@ LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 RUN yum -y update && \
     yum -y groupinstall "Development tools" && \
     yum -y install \
-    atlas-devel \
-    blas-devel \
     bzip2-devel \
     gcc \
     gcc-gfortran \
-    lapack-devel \
     libcurl-devel \
     libicu-devel \
     libSM \
@@ -29,6 +26,12 @@ RUN yum -y update && \
     wget \
     xz-devel \
     zlib-devel && \
+    yum clean all
+
+# Install OpenBLAS
+RUN yum -y install epel-release && \
+    yum -y install openblas-devel && \
+    yum -y remove epel-release && \
     yum clean all
 
 # Install TinyTeX
