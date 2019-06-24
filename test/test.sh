@@ -6,10 +6,13 @@ DIR="$(dirname "$(readlink -f "$BASH_SOURCE")")"
 R --version
 Rscript -e 'sessionInfo()'
 
-# R devel dependencies
+# List R devel dependencies
 gcc --version
 g++ --version
 gfortran --version
+
+# List shared library dependencies (e.g. BLAS/LAPACK)
+ldd $(R RHOME)/lib/libR.so
 
 # Install a package with C and Fortran code, R devel libs
 R CMD INSTALL $DIR/testpkg --clean
