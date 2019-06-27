@@ -12,7 +12,7 @@ g++ --version
 gfortran --version
 
 # List shared library dependencies (e.g. BLAS/LAPACK)
-ldd $(R RHOME)/lib/libR.so
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(R RHOME)/lib ldd $(R RHOME)/lib/libR.so
 
 # Install a package with C and Fortran code, R devel libs
 R CMD INSTALL $DIR/testpkg --clean
