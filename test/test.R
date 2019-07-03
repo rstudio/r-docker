@@ -69,7 +69,7 @@ for (dev_name in c("png", "jpeg", "tiff", "svg", "bmp", "pdf", "postscript",
 # Run externally to capture output from external processes.
 # For example, "Pango-WARNING **: failed to choose a font, expect ugly output"
 # messages when rendering text without any system fonts installed.
-output <- system2("Rscript", "-e 'png(tempfile()); plot(1)'", stdout = TRUE, stderr = TRUE)
+output <- system2(R.home("bin/Rscript"), "-e 'png(tempfile()); plot(1)'", stdout = TRUE, stderr = TRUE)
 if (length(output) > 0) {
   stop(sprintf("unexpected output returned from plotting:\n%s", paste(output, collapse = "\n")))
 }
@@ -84,7 +84,7 @@ download.file(sprintf("file://%s", tmpfile), tempfile(), "internal")
 
 # Check that a pager is configured and help pages work
 # https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.show.html
-output <- system2("Rscript", "-e 'help(stats)'", stdout = TRUE)
+output <- system2(R.home("bin/Rscript"), "-e 'help(stats)'", stdout = TRUE)
 if (length(output) == 0) {
   stop("failed to display help pages; check that a pager is configured properly")
 }
