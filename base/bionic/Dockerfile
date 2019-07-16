@@ -8,12 +8,12 @@ RUN apt-get update -qq && \
     build-essential \
     curl \
     gfortran \
-    libatlas-base-dev \
     libbz2-dev \
     libcairo2 \
     libcurl4-openssl-dev \
     libicu-dev \
     liblzma-dev \
+    libopenblas-dev \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
     libpcre3-dev \

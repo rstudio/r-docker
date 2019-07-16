@@ -19,6 +19,10 @@ RUN wget -O R-${R_VERSION}.tar.gz https://cdn.rstudio.com/r/${OS_IDENTIFIER}/R-$
     ln -s /opt/R/${R_VERSION}/lib/R /usr/lib/R && \
     rm R-${R_VERSION}.tar.gz
 
+# Configure R to use OpenBLAS
+RUN mv /opt/R/${R_VERSION}/lib/R/lib/libRblas.so /opt/R/${R_VERSION}/lib/R/lib/libRblas.so.keep && \
+    ln -s /usr/lib64/libopenblasp.so /opt/R/${R_VERSION}/lib/R/lib/libRblas.so
+
 # Add support for installing packages with C++11
 RUN echo $'CXX11 = g++\n\
 CXX11FLAGS = -g -O2 $(LTO)\n\

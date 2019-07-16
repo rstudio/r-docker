@@ -88,3 +88,8 @@ output <- system2("Rscript", "-e 'help(stats)'", stdout = TRUE)
 if (length(output) == 0) {
   stop("failed to display help pages; check that a pager is configured properly")
 }
+
+# Smoke test BLAS/LAPACK functionality. R may start just fine with an incompatible
+# BLAS/LAPACK library, and only fail when calling a BLAS or LAPACK routine.
+stopifnot(identical(crossprod(matrix(1)), matrix(1)))
+stopifnot(identical(chol(matrix(1)), matrix(1)))
