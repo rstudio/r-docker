@@ -11,12 +11,13 @@ ARG R_VERSION=3.4.4
 ARG OS_IDENTIFIER=ubuntu-1804
 
 # Install R
-RUN wget -O R-${R_VERSION}.tar.gz https://cdn.rstudio.com/r/${OS_IDENTIFIER}/R-${R_VERSION}-${OS_IDENTIFIER}.tar.gz && \
-    mkdir -p /opt/R && \
-    tar zx -C /opt/R -f ./R-${R_VERSION}.tar.gz && \
+RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb && \
+    apt-get update -qq && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -f -y --no-install-recommends ./r-${R_VERSION}_1_amd64.deb && \
     ln -s /opt/R/${R_VERSION}/bin/R /usr/bin/R && \
     ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/bin/Rscript && \
     ln -s /opt/R/${R_VERSION}/lib/R /usr/lib/R && \
-    rm R-${R_VERSION}.tar.gz
+    rm r-${R_VERSION}_1_amd64.deb && \
+    rm -rf /var/lib/apt/lists/*
 
 CMD ["R"]
