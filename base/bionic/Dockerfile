@@ -7,6 +7,7 @@ RUN apt-get update -qq && \
     apt-transport-https \
     curl \
     libbz2-dev \
+    libcurl4-openssl-dev \
     libicu-dev \
     liblzma-dev \
     libpcre3-dev \
