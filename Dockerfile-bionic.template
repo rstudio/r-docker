@@ -1,14 +1,8 @@
-#
-# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
-#
-# PLEASE DO NOT EDIT IT DIRECTLY.
-#
-
 ARG BASE_IMAGE=rstudio/r-base
-FROM ${BASE_IMAGE}:bionic
+FROM ${BASE_IMAGE}:%%VARIANT%%
 
-ARG R_VERSION=3.5.3
-ARG OS_IDENTIFIER=ubuntu-1804
+ARG R_VERSION=%%R_VERSION%%
+ARG OS_IDENTIFIER=%%OS_IDENTIFIER%%
 
 # Install R
 RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb && \
