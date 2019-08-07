@@ -37,9 +37,7 @@ for version in "${!r_versions[@]}"; do
         mkdir -p $dir
 
         case "$variant" in
-            xenial) template='ubuntu'
-            ;;
-            bionic) template='bionic'
+            xenial|bionic) template='ubuntu'
             ;;
             centos6) template='centos6'
             ;;
