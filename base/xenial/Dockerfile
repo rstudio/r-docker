@@ -11,6 +11,7 @@ RUN apt-get update -qq && \
     liblzma-dev \
     libpcre3-dev \
     locales \
+    perl \
     sudo \
     tzdata \
     wget \
