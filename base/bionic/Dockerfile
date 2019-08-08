@@ -6,12 +6,14 @@ RUN apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     apt-transport-https \
     curl \
+    fontconfig \
     libbz2-dev \
     libcurl4-openssl-dev \
     libicu-dev \
     liblzma-dev \
     libpcre3-dev \
     locales \
+    perl \
     sudo \
     tzdata \
     wget \
