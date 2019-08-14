@@ -2,38 +2,13 @@ FROM opensuse/leap:15.0
 LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN zypper --non-interactive update
-RUN zypper --non-interactive --gpg-auto-import-keys -n install \
+RUN zypper --non-interactive --gpg-auto-import-keys install \
     fontconfig \
-    gcc \
-    gcc-c++ \
-    gcc-fortran \
-    glibc-locale \
     gzip \
-    libbz2-devel \
-    libcairo2 \
-    libcurl-devel \
-    libfreetype6 \
-    libgomp1 \
-    libicu-devel \
-    libjpeg62 \
-    libreadline6 \
-    libtiff5 \
-    make \
-    openblas-devel \
-    pango-tools \
-    pcre-devel \
     sudo \
     tar \
-    tcl \
-    tk \
     vim \
     wget \
-    xdg-utils \
-    xorg-x11 \
-    xorg-x11-fonts-100dpi \
-    xorg-x11-fonts-75dpi \
-    xz-devel \
-    zlib-devel \
     && zypper clean --all
 
 # Install TinyTeX
