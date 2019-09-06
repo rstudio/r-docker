@@ -39,9 +39,7 @@ for version in "${!r_versions[@]}"; do
         case "$variant" in
             xenial|bionic) template='ubuntu'
             ;;
-            centos6) template='centos6'
-            ;;
-            centos7) template='centos'
+            centos6|centos7) template='centos'
             ;;
             opensuse42|opensuse15) template='opensuse'
             ;;

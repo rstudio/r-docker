@@ -2,35 +2,12 @@ FROM centos:centos6
 LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN yum -y update && \
-    yum -y groupinstall "Development tools" && \
     yum -y install \
-    bzip2-devel \
-    dejavu-sans-fonts \
-    libcurl-devel \
     libicu-devel \
-    libSM \
-    libtiff \
-    libXmu \
-    libXt \
-    make \
-    pango \
-    pcre-devel \
-    pcre2-devel \
-    perl-Digest-MD5 \
     sudo \
-    tcl \
     texlive \
-    tk \
     vim \
-    wget \
-    xz-devel \
-    zlib-devel && \
-    yum clean all
-
-# Install OpenBLAS
-RUN yum -y install epel-release && \
-    yum -y install openblas-devel && \
-    yum -y remove epel-release && \
+    wget && \
     yum clean all
 
 # CentOS 6 ships with an older version of C++, which is too old for
