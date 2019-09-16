@@ -1,5 +1,7 @@
 # RStudio R Docker Images
 
+[![CircleCI Build Status](https://circleci.com/gh/rstudio/r-docker.svg?style=svg)](https://circleci.com/gh/rstudio/r-docker)
+
 RStudio creates and [distributes an opinionated set of R
 binaries](https://github.com/rstudio/r-builds) for different Linux
 distributions. These Docker images are built to use those R binaries. *The
