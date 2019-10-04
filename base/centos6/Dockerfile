@@ -29,7 +29,7 @@ RUN yum install -y centos-release-scl && \
 # Permanently enable newer C/C++ for interactive and non-interactive use.
 # Note that this works for RUN instructions using the shell form only.
 # RUN instructions using the executable form can enable the newer C/C++ like:
-# RUN ["/etc/profile.d/scl_enable.sh", "gcc", "--version"]
+# RUN ["/bin/bash", "-lc", "gcc --version"]
 COPY scl_enable.sh /etc/profile.d/scl_enable.sh
 SHELL ["/etc/profile.d/scl_enable.sh", "/bin/sh", "-c"]
 ENTRYPOINT ["/etc/profile.d/scl_enable.sh"]
