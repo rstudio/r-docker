@@ -6,6 +6,7 @@
 #define FDEF(name)  {#name, (DL_FUNC) &F77_SUB(name), sizeof(name ## _t)/sizeof(name ## _t[0]), name ##_t}
 
 extern SEXP add(SEXP, SEXP);
+extern SEXP subtract(SEXP, SEXP);
 
 void F77_SUB(square)(int *n, int *answer);
 
@@ -16,6 +17,7 @@ static R_NativePrimitiveArgType square_t[] = {
 
 static const R_CallMethodDef CallEntries[] = {
     CALLDEF(add, 2),
+    CALLDEF(subtract, 2),
     {NULL, NULL, 0}
 };
 
