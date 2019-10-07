@@ -2,4 +2,5 @@
 
 export(add_it)
 export(square_it)
+export(subtract_it)
 useDynLib(testpkg, .registration = TRUE)
