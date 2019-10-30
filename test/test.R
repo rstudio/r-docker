@@ -15,6 +15,15 @@ if (length(OlsonNames()) == 0) {
   stop("Time zone database not found")
 }
 
+# Check that TZ is configured properly
+# https://github.com/rstudio/r-docker/issues/46
+tryCatch(Sys.timezone(), warning = function(w) {
+  stop("Sys.timezone() returned warning: ", w)
+})
+if (!identical(Sys.timezone(), "UTC")) {
+  stop("TZ not set to UTC")
+}
+
 # Check that we're in a UTF-8 native locale (e.g. LANG=C.UTF-8 or LANG=en_US.UTF-8)
 # https://stat.ethz.ch/R-manual/R-devel/library/base/html/locales.html
 if (!l10n_info()[["UTF-8"]]) {

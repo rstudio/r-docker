@@ -37,3 +37,6 @@ RUN mkdir -p /opt/pandoc && \
 
 # Set default locale
 ENV LANG C.UTF-8
+
+# Set default timezone
+ENV TZ UTC
