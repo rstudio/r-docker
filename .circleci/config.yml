@@ -53,6 +53,10 @@ jobs:
     <<: *build-images
     environment:
       VARIANT: centos7
+  centos8:
+    <<: *build-images
+    environment:
+      VARIANT: centos8
   opensuse42:
     <<: *build-images
     environment:
@@ -75,6 +79,8 @@ workflows:
           <<: *branch-default
       - centos7:
           <<: *branch-default
+      - centos8:
+          <<: *branch-default
       - opensuse42:
           <<: *branch-default
       - opensuse15:
@@ -88,6 +94,8 @@ workflows:
       - centos6:
           <<: *branch-master
       - centos7:
+          <<: *branch-master
+      - centos8:
           <<: *branch-master
       - opensuse42:
           <<: *branch-master
