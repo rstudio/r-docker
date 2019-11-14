@@ -4,6 +4,7 @@ LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 RUN dnf -y update && \
     dnf -y install \
     fontconfig \
+    glibc-langpack-en \
     perl-Digest-MD5 \
     perl-Getopt-Long \
     sudo \
