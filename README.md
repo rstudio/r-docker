@@ -48,6 +48,7 @@ The following distributions are supported:
 | bionic        | Ubuntu 18.04 |
 | centos6       | CentOS 6 |
 | centos7       | CentOS 7 |
+| centos8       | CentOS 8 |
 | opensuse42    | openSUSE 42.3 |
 | opensuse15    | openSUSE 15.0 |
 
