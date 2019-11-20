@@ -118,16 +118,20 @@ make test-3.4-xenial
 ```
 
 ### Updating Images
-1. Update [`update.sh`](update.sh) and [Makefile](Makefile) with the new distro or R version
-2. Generate new Dockerfiles:
+
+1. Update [`update.sh`](update.sh) and [`Makefile`](Makefile) with the new distro or R version
+2. Update [`.circleci/config.yml`](.circleci/config.yml)
+3. Update [`README.md`](README.md)
+4. Create a new /base/<distro>/Dockerfile
+5. Generate new Dockerfiles:
     ```bash
     make update-all
 
     # Or, using Docker
     make update-all-docker
     ```
-3. Build and test the new images locally
-4. Submit a pull request
+6. Build and test the new images locally
+7. Submit a pull request
 
 ### Rebuilding Images
 
