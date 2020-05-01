@@ -8,6 +8,7 @@ declare -A r_versions=(
     [3.4]='3.4.4'
     [3.5]='3.5.3'
     [3.6]='3.6.3'
+    [4.0]='4.0.0'
 )
 
 declare -A os_identifiers=(

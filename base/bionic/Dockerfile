@@ -11,6 +11,7 @@ RUN apt-get update -qq && \
     libcurl4-openssl-dev \
     libicu-dev \
     liblzma-dev \
+    libpcre2-dev \
     libpcre3-dev \
     locales \
     perl \
