@@ -46,6 +46,7 @@ The following distributions are supported:
 | ------------- |-----------|
 | xenial        | Ubuntu 16.04 |
 | bionic        | Ubuntu 18.04 |
+| focal         | Ubuntu 20.04 |
 | centos6       | CentOS 6 |
 | centos7       | CentOS 7 |
 | centos8       | CentOS 8 |
