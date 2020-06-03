@@ -7,18 +7,12 @@ RUN apt-get update -qq && \
     apt-transport-https \
     curl \
     fontconfig \
-    libbz2-dev \
     libcurl4-openssl-dev \
-    libicu-dev \
-    liblzma-dev \
-    libpcre2-dev \
-    libpcre3-dev \
     locales \
     perl \
     sudo \
     tzdata \
-    wget \
-    zlib1g-dev && \
+    wget && \
     rm -rf /var/lib/apt/lists/*
 
 # Install TinyTeX
