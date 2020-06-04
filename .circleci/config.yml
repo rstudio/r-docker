@@ -45,6 +45,10 @@ jobs:
     <<: *build-images
     environment:
       VARIANT: bionic
+  focal:
+    <<: *build-images
+    environment:
+      VARIANT: focal
   centos6:
     <<: *build-images
     environment:
@@ -75,6 +79,8 @@ workflows:
           <<: *branch-default
       - bionic:
           <<: *branch-default
+      - focal:
+          <<: *branch-default
       - centos6:
           <<: *branch-default
       - centos7:
@@ -90,6 +96,8 @@ workflows:
       - xenial:
           <<: *branch-master
       - bionic:
+          <<: *branch-master
+      - focal:
           <<: *branch-master
       - centos6:
           <<: *branch-master
