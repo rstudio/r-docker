@@ -10,10 +10,10 @@ build-images: &build-images
     - checkout
     - run:
         name: Build images
-        command: make build-all VARIANTS=$VARIANT
+        command: make build-all
     - run:
         name: Test images
-        command: make test-all VARIANTS=$VARIANT
+        command: make test-all
     - when:
         condition: << parameters.publish >>
         steps:
@@ -22,7 +22,7 @@ build-images: &build-images
               command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
           - run:
               name: Publish images
-              command: make push-all VARIANTS=$VARIANT
+              command: make push-all
 
 branch-master: &branch-master
   publish: true
@@ -40,35 +40,35 @@ jobs:
   xenial:
     <<: *build-images
     environment:
-      VARIANT: xenial
+      VARIANTS: xenial
   bionic:
     <<: *build-images
     environment:
-      VARIANT: bionic
+      VARIANTS: bionic
   focal:
     <<: *build-images
     environment:
-      VARIANT: focal
+      VARIANTS: focal
   centos6:
     <<: *build-images
     environment:
-      VARIANT: centos6
+      VARIANTS: centos6
   centos7:
     <<: *build-images
     environment:
-      VARIANT: centos7
+      VARIANTS: centos7
   centos8:
     <<: *build-images
     environment:
-      VARIANT: centos8
+      VARIANTS: centos8
   opensuse42:
     <<: *build-images
     environment:
-      VARIANT: opensuse42
+      VARIANTS: opensuse42
   opensuse15:
     <<: *build-images
     environment:
-      VARIANT: opensuse15
+      VARIANTS: opensuse15
   
 
 workflows:
