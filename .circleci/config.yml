@@ -5,9 +5,18 @@ build-images: &build-images
     publish:
       type: boolean
       default: false
+    versions:
+      type: string
+      default: ""
   machine: true
   steps:
     - checkout
+    - when:
+        condition: << parameters.versions >>
+        steps:
+          - run:
+              name: Setup custom environment variables
+              command: echo 'export VERSIONS=<< parameters.versions >>' >> $BASH_ENV
     - run:
         name: Build images
         command: make build-all
@@ -35,6 +44,10 @@ branch-default: &branch-default
   filters:
     branches:
       ignore: master
+
+r-devel: &r-devel
+  publish: true
+  versions: devel
 
 jobs:
   xenial:
@@ -109,3 +122,28 @@ workflows:
           <<: *branch-master
       - opensuse15:
           <<: *branch-master
+  build-r-devel-daily:
+    triggers:
+      - schedule:
+          cron: "0 6 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - xenial:
+          <<: *r-devel
+      - bionic:
+          <<: *r-devel
+      - focal:
+          <<: *r-devel
+      - centos6:
+          <<: *r-devel
+      - centos7:
+          <<: *r-devel
+      - centos8:
+          <<: *r-devel
+      - opensuse42:
+          <<: *r-devel
+      - opensuse15:
+          <<: *r-devel
