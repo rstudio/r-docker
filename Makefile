@@ -1,6 +1,6 @@
 BASE_IMAGE ?= rstudio/r-base
-VERSIONS = 3.1 3.2 3.3 3.4 3.5 3.6 4.0
-VARIANTS = xenial bionic focal centos6 centos7 centos8 opensuse42 opensuse15
+VERSIONS ?= 3.1 3.2 3.3 3.4 3.5 3.6 4.0 devel
+VARIANTS ?= xenial bionic focal centos6 centos7 centos8 opensuse42 opensuse15
 
 all: build-all test-all
 

@@ -5,15 +5,24 @@ build-images: &build-images
     publish:
       type: boolean
       default: false
+    versions:
+      type: string
+      default: ""
   machine: true
   steps:
     - checkout
+    - when:
+        condition: << parameters.versions >>
+        steps:
+          - run:
+              name: Setup custom environment variables
+              command: echo 'export VERSIONS=<< parameters.versions >>' >> $BASH_ENV
     - run:
         name: Build images
-        command: make build-all VARIANTS=$VARIANT
+        command: make build-all
     - run:
         name: Test images
-        command: make test-all VARIANTS=$VARIANT
+        command: make test-all
     - when:
         condition: << parameters.publish >>
         steps:
@@ -22,7 +31,7 @@ build-images: &build-images
               command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
           - run:
               name: Publish images
-              command: make push-all VARIANTS=$VARIANT
+              command: make push-all
 
 branch-master: &branch-master
   publish: true
@@ -36,39 +45,43 @@ branch-default: &branch-default
     branches:
       ignore: master
 
+r-devel: &r-devel
+  publish: true
+  versions: devel
+
 jobs:
   xenial:
     <<: *build-images
     environment:
-      VARIANT: xenial
+      VARIANTS: xenial
   bionic:
     <<: *build-images
     environment:
-      VARIANT: bionic
+      VARIANTS: bionic
   focal:
     <<: *build-images
     environment:
-      VARIANT: focal
+      VARIANTS: focal
   centos6:
     <<: *build-images
     environment:
-      VARIANT: centos6
+      VARIANTS: centos6
   centos7:
     <<: *build-images
     environment:
-      VARIANT: centos7
+      VARIANTS: centos7
   centos8:
     <<: *build-images
     environment:
-      VARIANT: centos8
+      VARIANTS: centos8
   opensuse42:
     <<: *build-images
     environment:
-      VARIANT: opensuse42
+      VARIANTS: opensuse42
   opensuse15:
     <<: *build-images
     environment:
-      VARIANT: opensuse15
+      VARIANTS: opensuse15
   
 
 workflows:
@@ -109,3 +122,28 @@ workflows:
           <<: *branch-master
       - opensuse15:
           <<: *branch-master
+  build-r-devel-daily:
+    triggers:
+      - schedule:
+          cron: "0 6 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - xenial:
+          <<: *r-devel
+      - bionic:
+          <<: *r-devel
+      - focal:
+          <<: *r-devel
+      - centos6:
+          <<: *r-devel
+      - centos7:
+          <<: *r-devel
+      - centos8:
+          <<: *r-devel
+      - opensuse42:
+          <<: *r-devel
+      - opensuse15:
+          <<: *r-devel
