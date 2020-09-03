@@ -52,6 +52,7 @@ The following distributions are supported:
 | centos8       | CentOS 8 |
 | opensuse42    | openSUSE 42.3 |
 | opensuse15    | openSUSE 15.0 |
+| opensuse152   | openSUSE 15.2 |
 
 All minor versions of R since 3.1 are supported, on the latest patch release.
 
