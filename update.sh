@@ -21,6 +21,7 @@ declare -A os_identifiers=(
     [centos8]='centos-8'
     [opensuse42]='opensuse-42'
     [opensuse15]='opensuse-15'
+    [opensuse152]='opensuse-152'
 )
 
 generated_warning() {
@@ -45,7 +46,7 @@ for version in "${!r_versions[@]}"; do
             ;;
             centos6|centos7|centos8) template='centos'
             ;;
-            opensuse42|opensuse15) template='opensuse'
+            opensuse42|opensuse15|opensuse152) template='opensuse'
             ;;
         esac
 

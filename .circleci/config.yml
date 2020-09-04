@@ -82,7 +82,11 @@ jobs:
     <<: *build-images
     environment:
       VARIANTS: opensuse15
-  
+  opensuse152:
+    <<: *build-images
+    environment:
+      VARIANTS: opensuse152
+
 
 workflows:
   version: 2
@@ -104,6 +108,8 @@ workflows:
           <<: *branch-default
       - opensuse15:
           <<: *branch-default
+      - opensuse152:
+          <<: *branch-default
   build-master:
     jobs:
       - xenial:
@@ -121,6 +127,8 @@ workflows:
       - opensuse42:
           <<: *branch-master
       - opensuse15:
+          <<: *branch-master
+      - opensuse152:
           <<: *branch-master
   build-r-devel-daily:
     triggers:
@@ -146,4 +154,6 @@ workflows:
       - opensuse42:
           <<: *r-devel
       - opensuse15:
+          <<: *r-devel
+      - opensuse152:
           <<: *r-devel
