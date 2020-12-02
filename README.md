@@ -19,14 +19,14 @@ refer to the [Rocker project](https://www.rocker-project.org/).
 These images can be used to execute R:
 
 ```
-docker run --rm -it rstudio/r-base:3.6-xenial
+docker run --rm -it rstudio/r-base:4.0-focal
 ```
 
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
 ```dockerfile
-FROM rstudio/r-base:3.6-xenial
+FROM rstudio/r-base:4.0-focal
 ```
 
 ### Releases and Tags
@@ -35,9 +35,9 @@ The images follow these tag patterns:
 
 | Pattern | Example | Description |
 | --- | --- | --- | 
-| `rstudio/r-base:distro` | `rstudio/r-base:centos7` |  Base operating system + system libraries required by R. |
-| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:3.5.3-centos7` | R version `x.y.z` on the specified OS |
-| `rstudio/r-base:x.y-distro` | `rstudio/r-base:3.5-centos7` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 3.5.4 is released, `rstudio/r-base:3.5-centos7` would switch from containing R 3.5.3 to R 3.5.4.|
+| `rstudio/r-base:distro` | `rstudio/r-base:centos8` |  Base operating system + system libraries required by R. |
+| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:4.0.3-centos8` | R version `x.y.z` on the specified OS |
+| `rstudio/r-base:x.y-distro` | `rstudio/r-base:4.0-centos8` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 4.0.4 is released, `rstudio/r-base:4.0-centos8` would switch from R 4.0.3 to R 4.0.4.|
 
 
 The following distributions are supported:  
@@ -47,7 +47,6 @@ The following distributions are supported:
 | xenial        | Ubuntu 16.04 |
 | bionic        | Ubuntu 18.04 |
 | focal         | Ubuntu 20.04 |
-| centos6       | CentOS 6 |
 | centos7       | CentOS 7 |
 | centos8       | CentOS 8 |
 | opensuse42    | openSUSE 42.3 |
