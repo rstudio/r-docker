@@ -16,7 +16,6 @@ declare -A os_identifiers=(
     [xenial]='ubuntu-1604'
     [bionic]='ubuntu-1804'
     [focal]='ubuntu-2004'
-    [centos6]='centos-6'
     [centos7]='centos-7'
     [centos8]='centos-8'
     [opensuse42]='opensuse-42'
@@ -44,7 +43,7 @@ for version in "${!r_versions[@]}"; do
         case "$variant" in
             xenial|bionic|focal) template='ubuntu'
             ;;
-            centos6|centos7|centos8) template='centos'
+            centos7|centos8) template='centos'
             ;;
             opensuse42|opensuse15|opensuse152) template='opensuse'
             ;;
