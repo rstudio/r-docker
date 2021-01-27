@@ -146,3 +146,7 @@ make rebuild-all
 # Rebuild a specific image.
 make rebuild-3.4-xenial
 ```
+
+### Notes
+
+- 1/27/2021 - rebuilt from base to mitigate the [Baron Samedit vulnerability](https://blog.qualys.com/vulnerabilities-research/2021/01/26/cve-2021-3156-heap-based-buffer-overflow-in-sudo-baron-samedit)
