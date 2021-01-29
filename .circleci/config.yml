@@ -8,6 +8,9 @@ build-images: &build-images
     versions:
       type: string
       default: ""
+    include_patch_versions:
+      type: boolean
+      default: false
   machine: true
   steps:
     - checkout
@@ -15,8 +18,14 @@ build-images: &build-images
         condition: << parameters.versions >>
         steps:
           - run:
-              name: Setup custom environment variables
+              name: Setup custom R versions to build
               command: echo 'export VERSIONS=<< parameters.versions >>' >> $BASH_ENV
+    - when:
+        condition: << parameters.include_patch_versions >>
+        steps:
+          - run:
+              name: Setup to build R patch versions
+              command: echo 'export INCLUDE_PATCH_VERSIONS=yes' >> $BASH_ENV
     - run:
         name: Build images
         command: make build-all
@@ -48,6 +57,10 @@ branch-default: &branch-default
 r-devel: &r-devel
   publish: true
   versions: devel
+
+r-patch-versions: &r-patch-versions
+  publish: true
+  include_patch_versions: true
 
 jobs:
   xenial:
@@ -147,3 +160,28 @@ workflows:
           <<: *r-devel
       - opensuse152:
           <<: *r-devel
+  build-r-patch-versions-monthly:
+    triggers:
+      - schedule:
+          cron: "0 0 3 * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - xenial:
+          <<: *r-patch-versions
+      - bionic:
+          <<: *r-patch-versions
+      - focal:
+          <<: *r-patch-versions
+      - centos7:
+          <<: *r-patch-versions
+      - centos8:
+          <<: *r-patch-versions
+      - opensuse42:
+          <<: *r-patch-versions
+      - opensuse15:
+          <<: *r-patch-versions
+      - opensuse152:
+          <<: *r-patch-versions

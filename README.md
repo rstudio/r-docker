@@ -101,21 +101,29 @@ In general, the structure consists of the following:
 
 
 ### Building Images
+
 ```bash
 # Build and test all images
 make
 
 # Build and test images for a specific R version
-make VERSIONS=3.4
+make VERSIONS=4.0
 
 # Build and test images for a specific distro
-make VARIANTS=xenial
+make VARIANTS=focal
 
 # Build a specific image
-make build-3.4-xenial
+make build-4.0-focal
+# Build a specific patch version
+make build-4.0.3-focal
 
 # Test a specific image
-make test-3.4-xenial
+make test-4.0-focal
+# Test a specific patch version
+make test-4.0.3-focal
+
+# Build and test all images, including historic patch versions
+make INCLUDE_PATCH_VERSIONS=yes
 ```
 
 ### Updating Images
