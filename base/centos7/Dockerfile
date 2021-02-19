@@ -11,8 +11,10 @@ RUN yum -y update && \
     yum clean all
 
 # Install TinyTeX
-RUN wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh -s - --admin --no-path && \
-    mv ~/.TinyTeX /opt/TinyTeX && \
+RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
+    /root/.TinyTeX/bin/*/tlmgr path remove && \
+    mv /root/.TinyTeX/ /opt/TinyTeX && \
+    /opt/TinyTeX/bin/*/tlmgr option sys_bin /usr/local/bin && \
     /opt/TinyTeX/bin/*/tlmgr path add
 
 # Install pandoc

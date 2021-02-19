@@ -18,5 +18,10 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(R RHOME)/lib ldd $(R RHOME)/lib/libR.so
 R CMD INSTALL $DIR/testpkg --clean
 Rscript $DIR/testpkg/tests/test.R
 
+# Check that TinyTeX and Pandoc were installed correctly
+tlmgr --version
+echo -e '# Title\ncontent' | pandoc --output $DIR/test.pdf
+rm $DIR/test.pdf
+
 # R tests
 Rscript $DIR/test.R
