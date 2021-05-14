@@ -10,6 +10,11 @@ FROM ${BASE_IMAGE}:opensuse42
 ARG R_VERSION=3.6.3
 ARG OS_IDENTIFIER=opensuse-42
 
+# Install libicu to avoid trying to build libicu when installing stringr
+# see https://issues.apache.org/jira/browse/ARROW-12786
+RUN zypper install libicu-devel \
+    zypper clean --all	
+
 # Install R
 RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_64.rpm && \
     zypper --non-interactive --no-gpg-checks install ./R-${R_VERSION}-1-1.x86_64.rpm && \
