@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:bionic
 
-ARG R_VERSION=4.0.4
+ARG R_VERSION=4.0.5
 ARG OS_IDENTIFIER=ubuntu-1804
 
 # Install R

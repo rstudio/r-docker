@@ -5,10 +5,10 @@
 #
 
 ARG BASE_IMAGE=rstudio/r-base
-FROM ${BASE_IMAGE}:opensuse15
+FROM ${BASE_IMAGE}:opensuse152
 
-ARG R_VERSION=4.0.5
-ARG OS_IDENTIFIER=opensuse-15
+ARG R_VERSION=4.1.0
+ARG OS_IDENTIFIER=opensuse-152
 
 # Install R
 RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_64.rpm && \
