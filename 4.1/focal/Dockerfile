@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:focal
 
-ARG R_VERSION=4.1.0
+ARG R_VERSION=4.1.1
 ARG OS_IDENTIFIER=ubuntu-2004
 
 # Install R
