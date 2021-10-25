@@ -10,6 +10,15 @@ RUN zypper --non-interactive --gpg-auto-import-keys install \
     wget \
     && zypper clean --all
 
+# Work around issue with expired Let's Encrypt root certificate and OpenSSL 1.0.2,
+# which affects downloads from sourceforge.net (and possibly other sites).
+# On SLES 12, the issue can be resolved by updating ca-certificates-mozilla, but
+# openSUSE 42 (EOL) requires a manual removal of the expired DST Root CA X3 cerificate.
+# https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
+# https://www.suse.com/support/kb/doc/?id=000020401
+RUN rm /usr/share/pki/trust/DST_Root_CA_X3.pem && \
+    update-ca-certificates
+
 # Install TinyTeX
 RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
     /root/.TinyTeX/bin/*/tlmgr path remove && \
