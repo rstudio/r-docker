@@ -42,17 +42,17 @@ build-images: &build-images
               name: Publish images
               command: make push-all
 
-branch-master: &branch-master
+branch-main: &branch-main
   publish: true
   filters:
     branches:
-      only: master
+      only: main
 
 branch-default: &branch-default
   publish: false
   filters:
     branches:
-      ignore: master
+      ignore: main
 
 r-devel: &r-devel
   publish: true
@@ -117,24 +117,24 @@ workflows:
           <<: *branch-default
       - opensuse152:
           <<: *branch-default
-  build-master:
+  build-main:
     jobs:
       - xenial:
-          <<: *branch-master
+          <<: *branch-main
       - bionic:
-          <<: *branch-master
+          <<: *branch-main
       - focal:
-          <<: *branch-master
+          <<: *branch-main
       - centos7:
-          <<: *branch-master
+          <<: *branch-main
       - centos8:
-          <<: *branch-master
+          <<: *branch-main
       - opensuse42:
-          <<: *branch-master
+          <<: *branch-main
       - opensuse15:
-          <<: *branch-master
+          <<: *branch-main
       - opensuse152:
-          <<: *branch-master
+          <<: *branch-main
   build-r-devel-daily:
     triggers:
       - schedule:
@@ -142,7 +142,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
     jobs:
       - xenial:
           <<: *r-devel
@@ -167,7 +167,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
     jobs:
       - xenial:
           <<: *r-patch-versions
