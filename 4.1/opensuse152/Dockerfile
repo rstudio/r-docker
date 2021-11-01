@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:opensuse152
 
-ARG R_VERSION=4.1.1
+ARG R_VERSION=4.1.2
 ARG OS_IDENTIFIER=opensuse-152
 
 # Install R

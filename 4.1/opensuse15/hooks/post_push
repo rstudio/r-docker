@@ -5,4 +5,4 @@ function add_tag() {
     docker push $DOCKER_REPO:$1
 }
 
-add_tag 4.1.1-opensuse15
+add_tag 4.1.2-opensuse15
