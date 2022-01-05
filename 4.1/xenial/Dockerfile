@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:xenial
 
-ARG R_VERSION=4.1.1
+ARG R_VERSION=4.1.2
 ARG OS_IDENTIFIER=ubuntu-1604
 
 # Install R
