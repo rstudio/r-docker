@@ -1,6 +1,6 @@
 BASE_IMAGE ?= rstudio/r-base
 VERSIONS ?= 3.1 3.2 3.3 3.4 3.5 3.6 4.0 4.1 devel
-VARIANTS ?= bionic focal impish jammy centos7 rockylinux8 opensuse42 opensuse153
+VARIANTS ?= bionic focal jammy centos7 rockylinux8 opensuse42 opensuse153
 
 # PATCH_VERSIONS defines all actively maintained R patch versions.
 PATCH_VERSIONS ?= 3.1.3 3.2.5 3.3.3 3.4.4 3.5.3 \
