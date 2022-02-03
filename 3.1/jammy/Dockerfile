@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:jammy
 
-ARG R_VERSION=devel
+ARG R_VERSION=3.1.3
 ARG OS_IDENTIFIER=ubuntu-2204
 
 # Install R
