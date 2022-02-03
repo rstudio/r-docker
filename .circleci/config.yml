@@ -71,6 +71,10 @@ jobs:
     <<: *build-images
     environment:
       VARIANTS: focal
+  jammy:
+    <<: *build-images
+    environment:
+      VARIANTS: jammy
   centos7:
     <<: *build-images
     environment:
@@ -97,6 +101,8 @@ workflows:
           <<: *branch-default
       - focal:
           <<: *branch-default
+      - jammy:
+          <<: *branch-default
       - centos7:
           <<: *branch-default
       - rockylinux8:
@@ -110,6 +116,8 @@ workflows:
       - bionic:
           <<: *branch-main
       - focal:
+          <<: *branch-main
+      - jammy:
           <<: *branch-main
       - centos7:
           <<: *branch-main
@@ -132,6 +140,8 @@ workflows:
           <<: *r-devel
       - focal:
           <<: *r-devel
+      - jammy:
+          <<: *r-devel
       - centos7:
           <<: *r-devel
       - rockylinux8:
@@ -152,6 +162,8 @@ workflows:
       - bionic:
           <<: *r-patch-versions
       - focal:
+          <<: *r-patch-versions
+      - jammy:
           <<: *r-patch-versions
       - centos7:
           <<: *r-patch-versions
