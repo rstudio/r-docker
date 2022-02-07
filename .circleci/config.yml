@@ -79,10 +79,10 @@ jobs:
     <<: *build-images
     environment:
       VARIANTS: centos7
-  centos8:
+  rockylinux8:
     <<: *build-images
     environment:
-      VARIANTS: centos8
+      VARIANTS: rockylinux8
   opensuse42:
     <<: *build-images
     environment:
@@ -113,7 +113,7 @@ workflows:
           <<: *branch-default
       - centos7:
           <<: *branch-default
-      - centos8:
+      - rockylinux8:
           <<: *branch-default
       - opensuse42:
           <<: *branch-default
@@ -133,7 +133,7 @@ workflows:
           <<: *branch-main
       - centos7:
           <<: *branch-main
-      - centos8:
+      - rockylinux8:
           <<: *branch-main
       - opensuse42:
           <<: *branch-main
@@ -160,7 +160,7 @@ workflows:
           <<: *r-devel
       - centos7:
           <<: *r-devel
-      - centos8:
+      - rockylinux8:
           <<: *r-devel
       - opensuse42:
           <<: *r-devel
@@ -187,7 +187,7 @@ workflows:
           <<: *r-patch-versions
       - centos7:
           <<: *r-patch-versions
-      - centos8:
+      - rockylinux8:
           <<: *r-patch-versions
       - opensuse42:
           <<: *r-patch-versions

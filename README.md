@@ -35,9 +35,9 @@ The images follow these tag patterns:
 
 | Pattern | Example | Description |
 | --- | --- | --- | 
-| `rstudio/r-base:distro` | `rstudio/r-base:centos8` |  Base operating system + system libraries required by R. |
-| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:4.0.3-centos8` | R version `x.y.z` on the specified OS |
-| `rstudio/r-base:x.y-distro` | `rstudio/r-base:4.0-centos8` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 4.0.4 is released, `rstudio/r-base:4.0-centos8` would switch from R 4.0.3 to R 4.0.4.|
+| `rstudio/r-base:distro` | `rstudio/r-base:focal` |  Base operating system + system libraries required by R. |
+| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:4.0.3-focal` | R version `x.y.z` on the specified OS |
+| `rstudio/r-base:x.y-distro` | `rstudio/r-base:4.0-focal` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 4.0.4 is released, `rstudio/r-base:4.0-focal` would switch from R 4.0.3 to R 4.0.4.|
 
 
 The following distributions are supported:  
@@ -48,7 +48,7 @@ The following distributions are supported:
 | bionic        | Ubuntu 18.04 |
 | focal         | Ubuntu 20.04 |
 | centos7       | CentOS 7 |
-| centos8       | CentOS 8 |
+| rockylinux8   | Rocky Linux 8 |
 | opensuse42    | openSUSE 42.3 |
 | opensuse15    | openSUSE 15.0 |
 | opensuse152   | openSUSE 15.2 |

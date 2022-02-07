@@ -1,4 +1,4 @@
-FROM centos:centos8
+FROM rockylinux:8
 LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
 RUN dnf -y update && \
