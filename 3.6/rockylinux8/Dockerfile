@@ -5,7 +5,7 @@
 #
 
 ARG BASE_IMAGE=rstudio/r-base
-FROM ${BASE_IMAGE}:centos8
+FROM ${BASE_IMAGE}:rockylinux8
 
 ARG R_VERSION=3.6.3
 ARG OS_IDENTIFIER=centos-8
