@@ -44,14 +44,13 @@ The following distributions are supported:
 
 | Distribution  | Full Name |
 | ------------- |-----------|
-| xenial        | Ubuntu 16.04 |
 | bionic        | Ubuntu 18.04 |
 | focal         | Ubuntu 20.04 |
 | centos7       | CentOS 7 |
 | rockylinux8   | Rocky Linux 8 |
 | opensuse42    | openSUSE 42.3 |
-| opensuse15    | openSUSE 15.0 |
 | opensuse152   | openSUSE 15.2 |
+| opensuse153   | openSUSE 15.3 |
 
 All minor versions of R since 3.1 are supported, on the latest patch release.
 
@@ -152,7 +151,7 @@ This ignores the Docker cache and reinstalls R in the image.
 make rebuild-all
 
 # Rebuild a specific image.
-make rebuild-3.4-xenial
+make rebuild-3.4-focal
 ```
 
 ### Notes

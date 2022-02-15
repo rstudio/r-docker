@@ -63,10 +63,6 @@ r-patch-versions: &r-patch-versions
   include_patch_versions: true
 
 jobs:
-  xenial:
-    <<: *build-images
-    environment:
-      VARIANTS: xenial
   bionic:
     <<: *build-images
     environment:
@@ -87,10 +83,6 @@ jobs:
     <<: *build-images
     environment:
       VARIANTS: opensuse42
-  opensuse15:
-    <<: *build-images
-    environment:
-      VARIANTS: opensuse15
   opensuse152:
     <<: *build-images
     environment:
@@ -105,8 +97,6 @@ workflows:
   version: 2
   build-default:
     jobs:
-      - xenial:
-          <<: *branch-default
       - bionic:
           <<: *branch-default
       - focal:
@@ -116,8 +106,6 @@ workflows:
       - rockylinux8:
           <<: *branch-default
       - opensuse42:
-          <<: *branch-default
-      - opensuse15:
           <<: *branch-default
       - opensuse152:
           <<: *branch-default
@@ -125,8 +113,6 @@ workflows:
           <<: *branch-default
   build-main:
     jobs:
-      - xenial:
-          <<: *branch-main
       - bionic:
           <<: *branch-main
       - focal:
@@ -136,8 +122,6 @@ workflows:
       - rockylinux8:
           <<: *branch-main
       - opensuse42:
-          <<: *branch-main
-      - opensuse15:
           <<: *branch-main
       - opensuse152:
           <<: *branch-main
@@ -152,8 +136,6 @@ workflows:
               only:
                 - main
     jobs:
-      - xenial:
-          <<: *r-devel
       - bionic:
           <<: *r-devel
       - focal:
@@ -163,8 +145,6 @@ workflows:
       - rockylinux8:
           <<: *r-devel
       - opensuse42:
-          <<: *r-devel
-      - opensuse15:
           <<: *r-devel
       - opensuse152:
           <<: *r-devel
@@ -179,8 +159,6 @@ workflows:
               only:
                 - main
     jobs:
-      - xenial:
-          <<: *r-patch-versions
       - bionic:
           <<: *r-patch-versions
       - focal:
@@ -190,8 +168,6 @@ workflows:
       - rockylinux8:
           <<: *r-patch-versions
       - opensuse42:
-          <<: *r-patch-versions
-      - opensuse15:
           <<: *r-patch-versions
       - opensuse152:
           <<: *r-patch-versions
