@@ -19,7 +19,6 @@ declare -A os_identifiers=(
     [centos7]='centos-7'
     [rockylinux8]='centos-8'
     [opensuse42]='opensuse-42'
-    [opensuse152]='opensuse-152'
     [opensuse153]='opensuse-153'
 )
 
@@ -45,7 +44,7 @@ for version in "${!r_versions[@]}"; do
             ;;
             centos7|rockylinux8) template='centos'
             ;;
-            opensuse42|opensuse152|opensuse153) template='opensuse'
+            opensuse42|opensuse153) template='opensuse'
             ;;
         esac
 
