@@ -83,10 +83,6 @@ jobs:
     <<: *build-images
     environment:
       VARIANTS: opensuse42
-  opensuse152:
-    <<: *build-images
-    environment:
-      VARIANTS: opensuse152
   opensuse153:
     <<: *build-images
     environment:
@@ -107,8 +103,6 @@ workflows:
           <<: *branch-default
       - opensuse42:
           <<: *branch-default
-      - opensuse152:
-          <<: *branch-default
       - opensuse153:
           <<: *branch-default
   build-main:
@@ -122,8 +116,6 @@ workflows:
       - rockylinux8:
           <<: *branch-main
       - opensuse42:
-          <<: *branch-main
-      - opensuse152:
           <<: *branch-main
       - opensuse153:
           <<: *branch-main
@@ -146,8 +138,6 @@ workflows:
           <<: *r-devel
       - opensuse42:
           <<: *r-devel
-      - opensuse152:
-          <<: *r-devel
       - opensuse153:
           <<: *r-devel
   build-r-patch-versions-monthly:
@@ -168,8 +158,6 @@ workflows:
       - rockylinux8:
           <<: *r-patch-versions
       - opensuse42:
-          <<: *r-patch-versions
-      - opensuse152:
           <<: *r-patch-versions
       - opensuse153:
           <<: *r-patch-versions
