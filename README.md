@@ -46,6 +46,7 @@ The following distributions are supported:
 | ------------- |-----------|
 | bionic        | Ubuntu 18.04 |
 | focal         | Ubuntu 20.04 |
+| jammy         | Ubuntu 22.04 |
 | centos7       | CentOS 7 |
 | rockylinux8   | Rocky Linux 8 |
 | opensuse42    | openSUSE 42.3 |
