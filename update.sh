@@ -16,6 +16,7 @@ declare -A r_versions=(
 declare -A os_identifiers=(
     [bionic]='ubuntu-1804'
     [focal]='ubuntu-2004'
+    [jammy]='ubuntu-2204'
     [centos7]='centos-7'
     [rockylinux8]='centos-8'
     [opensuse42]='opensuse-42'
@@ -40,7 +41,7 @@ for version in "${!r_versions[@]}"; do
         mkdir -p $dir
 
         case "$variant" in
-            bionic|focal) template='ubuntu'
+            bionic|focal|jammy) template='ubuntu'
             ;;
             centos7|rockylinux8) template='centos'
             ;;
