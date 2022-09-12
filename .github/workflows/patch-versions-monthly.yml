@@ -1,0 +1,17 @@
+name: Monthly R patch version builds
+
+on:
+  schedule:
+    - cron: '0 0 3 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-images:
+    uses: ./.github/workflows/build.yml
+    with:
+      include_patch_versions: true
+      publish_images: true
+    secrets: inherit

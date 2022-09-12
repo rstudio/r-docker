@@ -1,0 +1,17 @@
+name: Daily R-devel builds
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-images:
+    uses: ./.github/workflows/build.yml
+    with:
+      versions: 'devel'
+      publish_images: true
+    secrets: inherit

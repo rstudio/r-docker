@@ -1,0 +1,125 @@
+name: R Docker
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      variants:
+        description: |
+          Space-separated list of variants (platforms). Defaults to all variants.
+        required: false
+        default: ''
+        type: string
+      versions:
+        description: |
+          Space-separated list of R versions. Defaults to all versions.
+        required: false
+        default: ''
+        type: string
+      publish_images:
+        description: |
+          Publish images to Docker Hub?
+        required: false
+        default: false
+        type: boolean
+      include_patch_versions:
+        description: |
+          When building all R versions, include R patch version tags (x.y.z) as well?
+        required: false
+        default: false
+        type: boolean
+  workflow_call:
+    inputs:
+      versions:
+        description: |
+          Space-separated list of R versions. Defaults to all versions.
+        required: false
+        default: ''
+        type: string
+      publish_images:
+        description: |
+          Publish images to Docker Hub?
+        required: false
+        default: false
+        type: boolean
+      include_patch_versions:
+        description: |
+          Include R patch versions?
+        required: false
+        default: false
+        type: boolean
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      variants: ${{ steps.setup-matrix.outputs.variants }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up matrix of variants
+        id: setup-matrix
+        run: |
+          if [[ "${{ inputs.variants }}" != "" ]]; then
+            variants="${{ inputs.variants }}"
+          else
+            variants="$(make print-variants)"
+          fi
+          variants=$(echo "$variants" | jq -R -c '[splits(" ")]')
+          echo "::set-output name=variants::$variants"
+
+  docker-images:
+    needs: setup-matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJson(needs.setup-matrix.outputs.variants) }}
+    runs-on: ubuntu-latest
+    name: Docker images (${{ matrix.variant }})
+    env:
+      VARIANTS: ${{ matrix.variant }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver: docker
+          install: true
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Setup environment
+        run: |
+          if [[ "${{ inputs.versions }}" != "" ]]; then
+            echo "VERSIONS=${{ inputs.versions }}" >> $GITHUB_ENV
+          fi
+
+          if [[ "${{ inputs.include_patch_versions }}" == "true" ]]; then
+            echo "INCLUDE_PATCH_VERSIONS=yes" >> $GITHUB_ENV
+          fi
+
+      - name: Build images
+        run: |
+          make build-all
+
+      - name: Test images
+        run: |
+          make test-all
+
+      - name: Push images
+        if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
+        run: |
+          make push-all

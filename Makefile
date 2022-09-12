@@ -36,7 +36,7 @@ rebuild-$(version)-$(variant): build-base-$(variant)
 	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
 
 test-$(version)-$(variant):
-	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
+	docker run --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
 
 bash-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
@@ -79,7 +79,7 @@ rebuild-$(version)-$(variant): build-base-$(variant)
 		$(minor_version)/$(variant)/.
 
 test-$(version)-$(variant):
-	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
+	docker run --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
 
 bash-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
@@ -114,3 +114,6 @@ test-all: $(TEST_R_IMAGES)
 pull-all: $(PULL_R_IMAGES)
 
 push-all: $(PUSH_R_IMAGES)
+
+print-variants:
+	@echo $(VARIANTS)
