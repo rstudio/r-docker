@@ -6,6 +6,13 @@ DIR="$(dirname "$(readlink -f "$BASH_SOURCE")")"
 R --version
 Rscript -e 'sessionInfo()'
 
+# Ensure that the R version in the Docker tag (x.y or x.y.z) matches the image
+r_ver=$(Rscript -e 'cat(as.character(getRversion()))')
+if [[ "$TAG_VERSION" != "devel" ]] && [[ ! "$r_ver" =~ ^"$TAG_VERSION" ]]; then
+    echo "R version $r_ver does not match Docker tag version $TAG_VERSION"
+    exit 1
+fi
+
 # List R devel dependencies
 gcc --version
 g++ --version

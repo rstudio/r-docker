@@ -36,7 +36,10 @@ rebuild-$(version)-$(variant): build-base-$(variant)
 	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
 
 test-$(version)-$(variant):
-	docker run --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
+	docker run --rm -v $(PWD)/test:/test \
+		-e TAG_VERSION=$(version) \
+		$(BASE_IMAGE):$(version)-$(variant) \
+		bash -l /test/test.sh
 
 bash-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
@@ -79,7 +82,10 @@ rebuild-$(version)-$(variant): build-base-$(variant)
 		$(minor_version)/$(variant)/.
 
 test-$(version)-$(variant):
-	docker run --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
+	docker run --rm -v $(PWD)/test:/test \
+		-e TAG_VERSION=$(version) \
+		$(BASE_IMAGE):$(version)-$(variant) \
+		bash -l /test/test.sh
 
 bash-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
