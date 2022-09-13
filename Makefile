@@ -30,7 +30,13 @@ push-base-%:
 
 define GEN_R_IMAGE_TARGETS
 build-$(version)-$(variant): build-base-$(variant)
-	docker build -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
+	# Temporary workaround for Dockerfile caching bug with Docker BuildKit.
+	# Specify Dockerfile via stdin to avoid wrong R versions from being used.
+	# https://github.com/moby/buildkit/issues/1368
+	cat $(version)/$(variant)/Dockerfile | docker build -t $(BASE_IMAGE):$(version)-$(variant) \
+		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
+		--file - \
+		$(version)/$(variant)/.
 
 rebuild-$(version)-$(variant): build-base-$(variant)
 	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
@@ -70,9 +76,13 @@ endef
 
 define GEN_R_PATCH_IMAGE_TARGETS
 build-$(version)-$(variant): build-base-$(variant)
-	docker build -t $(BASE_IMAGE):$(version)-$(variant) \
+	# Temporary workaround for Dockerfile caching bug with Docker BuildKit.
+	# Specify Dockerfile via stdin to avoid wrong R versions from being used.
+	# https://github.com/moby/buildkit/issues/1368
+	cat $(minor_version)/$(variant)/Dockerfile | docker build -t $(BASE_IMAGE):$(version)-$(variant) \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--build-arg R_VERSION=$(version) \
+		--file - \
 		$(minor_version)/$(variant)/.
 
 rebuild-$(version)-$(variant): build-base-$(variant)
