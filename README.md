@@ -1,6 +1,6 @@
 # RStudio R Docker Images
 
-[![CircleCI Build Status](https://circleci.com/gh/rstudio/r-docker.svg?style=svg)](https://circleci.com/gh/rstudio/r-docker)
+[![R Docker](https://github.com/rstudio/r-docker/actions/workflows/build.yml/badge.svg)](https://github.com/rstudio/r-docker/actions/workflows/build.yml)
 
 RStudio creates and [distributes an opinionated set of R
 binaries](https://github.com/rstudio/r-builds) for different Linux
@@ -129,18 +129,17 @@ make INCLUDE_PATCH_VERSIONS=yes
 ### Updating Images
 
 1. Update [`update.sh`](update.sh) and [`Makefile`](Makefile) with the new distro or R version
-2. Update [`.circleci/config.yml`](.circleci/config.yml)
-3. Update [`README.md`](README.md)
-4. Create a new /base/<distro>/Dockerfile
-5. Generate new Dockerfiles:
+2. Update [`README.md`](README.md)
+3. Create a new /base/<distro>/Dockerfile
+4. Generate new Dockerfiles:
     ```bash
     make update-all
 
     # Or, using Docker
     make update-all-docker
     ```
-6. Build and test the new images locally
-7. Submit a pull request
+5. Build and test the new images locally
+6. Submit a pull request
 
 ### Rebuilding Images
 
