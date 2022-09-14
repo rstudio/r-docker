@@ -30,13 +30,22 @@ push-base-%:
 
 define GEN_R_IMAGE_TARGETS
 build-$(version)-$(variant): build-base-$(variant)
-	docker build -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
+	# Temporary workaround for Dockerfile caching bug with Docker BuildKit.
+	# Specify Dockerfile via stdin to avoid wrong R versions from being used.
+	# https://github.com/moby/buildkit/issues/1368
+	cat $(version)/$(variant)/Dockerfile | docker build -t $(BASE_IMAGE):$(version)-$(variant) \
+		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
+		--file - \
+		$(version)/$(variant)/.
 
 rebuild-$(version)-$(variant): build-base-$(variant)
 	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
 
 test-$(version)-$(variant):
-	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
+	docker run --rm -v $(PWD)/test:/test \
+		-e TAG_VERSION=$(version) \
+		$(BASE_IMAGE):$(version)-$(variant) \
+		bash -l /test/test.sh
 
 bash-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
@@ -67,9 +76,13 @@ endef
 
 define GEN_R_PATCH_IMAGE_TARGETS
 build-$(version)-$(variant): build-base-$(variant)
-	docker build -t $(BASE_IMAGE):$(version)-$(variant) \
+	# Temporary workaround for Dockerfile caching bug with Docker BuildKit.
+	# Specify Dockerfile via stdin to avoid wrong R versions from being used.
+	# https://github.com/moby/buildkit/issues/1368
+	cat $(minor_version)/$(variant)/Dockerfile | docker build -t $(BASE_IMAGE):$(version)-$(variant) \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--build-arg R_VERSION=$(version) \
+		--file - \
 		$(minor_version)/$(variant)/.
 
 rebuild-$(version)-$(variant): build-base-$(variant)
@@ -79,7 +92,10 @@ rebuild-$(version)-$(variant): build-base-$(variant)
 		$(minor_version)/$(variant)/.
 
 test-$(version)-$(variant):
-	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash -l /test/test.sh
+	docker run --rm -v $(PWD)/test:/test \
+		-e TAG_VERSION=$(version) \
+		$(BASE_IMAGE):$(version)-$(variant) \
+		bash -l /test/test.sh
 
 bash-$(version)-$(variant):
 	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
@@ -114,3 +130,6 @@ test-all: $(TEST_R_IMAGES)
 pull-all: $(PULL_R_IMAGES)
 
 push-all: $(PUSH_R_IMAGES)
+
+print-variants:
+	@echo $(VARIANTS)
