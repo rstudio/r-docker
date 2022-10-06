@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:22.04
 
 LABEL maintainer="RStudio Docker <docker@rstudio.com>"
 
