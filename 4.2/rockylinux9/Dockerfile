@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:rockylinux9
 
-ARG R_VERSION=4.2.1
+ARG R_VERSION=4.2.2
 ARG OS_IDENTIFIER=rhel-9
 
 # Install R

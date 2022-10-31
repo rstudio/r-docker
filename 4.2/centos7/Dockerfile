@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:centos7
 
-ARG R_VERSION=4.2.1
+ARG R_VERSION=4.2.2
 ARG OS_IDENTIFIER=centos-7
 
 # Install R
