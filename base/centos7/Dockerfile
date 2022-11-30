@@ -1,5 +1,5 @@
 FROM centos:centos7
-LABEL maintainer="RStudio Docker <docker@rstudio.com>"
+LABEL maintainer="Posit Docker <docker@posit.co>"
 
 RUN yum -y update && \
     yum -y install \

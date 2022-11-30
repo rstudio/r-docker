@@ -1,5 +1,5 @@
 FROM rockylinux:9
-LABEL maintainer="RStudio Docker <docker@rstudio.com>"
+LABEL maintainer="Posit Docker <docker@posit.co>"
 
 RUN dnf -y update && \
     dnf -y install \
