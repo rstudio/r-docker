@@ -11,7 +11,7 @@ ARG R_VERSION=3.1.3
 ARG OS_IDENTIFIER=rhel-9
 
 # Install R
-RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_64.rpm && \
+RUN wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_64.rpm && \
     dnf -y install dnf-plugins-core && \
     dnf config-manager --set-enabled crb && \
     dnf -y install epel-release && \

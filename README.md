@@ -1,8 +1,8 @@
-# RStudio R Docker Images
+# Posit R Docker Images
 
 [![R Docker](https://github.com/rstudio/r-docker/actions/workflows/build.yml/badge.svg)](https://github.com/rstudio/r-docker/actions/workflows/build.yml)
 
-RStudio creates and [distributes an opinionated set of R
+Posit creates and [distributes an opinionated set of R
 binaries](https://github.com/rstudio/r-builds) for different Linux
 distributions. These Docker images are built to use those R binaries. *The
 images are intentionally minimal, their primary purpose is to serve as the
@@ -19,14 +19,14 @@ refer to the [Rocker project](https://www.rocker-project.org/).
 These images can be used to execute R:
 
 ```
-docker run --rm -it rstudio/r-base:4.0-focal
+docker run --rm -it rstudio/r-base:4.2-focal
 ```
 
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
 ```dockerfile
-FROM rstudio/r-base:4.0-focal
+FROM rstudio/r-base:4.2-focal
 ```
 
 ### Releases and Tags
@@ -56,7 +56,7 @@ The following distributions are supported:
 All minor versions of R since 3.1 are supported, on the latest patch release.
 
 New versions of R are added when they're available on the
-[RStudio CDN](https://cdn.rstudio.com/r/versions.json), though there may be
+[Posit CDN](https://cdn.posit.co/r/versions.json), though there may be
 some delay between the release of R and the release of the Docker image.
 
 New operating systems are added on a less frequent basis. 
@@ -71,13 +71,13 @@ R is a language and environment for statistical computing and graphics. For more
 
 ### Resources
 
-- [Using Docker with R](https://environments.rstudio.com/docker)
-- [Using Docker with RStudio Server Pro](https://solutions.rstudio.com/launcher/overview/) 
+- [Using Docker with R](https://solutions.posit.co/envs-pkgs/environments/docker/)
+- [Running Posit Products in Containers](https://solutions.posit.co/architecting/docker/) 
 
 ### Support
 
-RStudio does not provide professional support for these images or the R
-language. The best place to ask questions and provide feedback is the [RStudio
+Posit does not provide professional support for these images or the R
+language. The best place to ask questions and provide feedback is the [Posit
 Community](https://community.rstudio.com/).
 
 ### License
@@ -153,7 +153,3 @@ make rebuild-all
 # Rebuild a specific image.
 make rebuild-3.4-focal
 ```
-
-### Notes
-
-- 1/27/2021 - rebuilt from base to mitigate the [Baron Samedit vulnerability](https://blog.qualys.com/vulnerabilities-research/2021/01/26/cve-2021-3156-heap-based-buffer-overflow-in-sudo-baron-samedit)

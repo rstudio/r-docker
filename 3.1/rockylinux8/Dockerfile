@@ -11,7 +11,7 @@ ARG R_VERSION=3.1.3
 ARG OS_IDENTIFIER=centos-8
 
 # Install R
-RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_64.rpm && \
+RUN wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_64.rpm && \
     yum -y install epel-release && \
     yum -y install ./R-${R_VERSION}-1-1.x86_64.rpm && \
     ln -s /opt/R/${R_VERSION}/bin/R /usr/bin/R && \

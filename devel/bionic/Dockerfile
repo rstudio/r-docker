@@ -11,7 +11,7 @@ ARG R_VERSION=devel
 ARG OS_IDENTIFIER=ubuntu-1804
 
 # Install R
-RUN wget https://cdn.rstudio.com/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb && \
+RUN wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_amd64.deb && \
     apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -f -y ./r-${R_VERSION}_1_amd64.deb && \
     ln -s /opt/R/${R_VERSION}/bin/R /usr/bin/R && \

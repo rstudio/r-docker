@@ -1,6 +1,6 @@
 FROM ubuntu:focal
 
-LABEL maintainer="RStudio Docker <docker@rstudio.com>"
+LABEL maintainer="Posit Docker <docker@posit.co>"
 
 RUN apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
