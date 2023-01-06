@@ -74,7 +74,7 @@ jobs:
             variants="$(make print-variants)"
           fi
           variants=$(echo "$variants" | jq -R -c '[splits(" ")]')
-          echo "::set-output name=variants::$variants"
+          echo "variants=$variants" >> $GITHUB_OUTPUT
 
   docker-images:
     needs: setup-matrix
