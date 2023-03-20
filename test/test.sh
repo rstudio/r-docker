@@ -13,10 +13,11 @@ if [[ "$TAG_VERSION" != "devel" ]] && [[ ! "$r_ver" =~ ^"$TAG_VERSION" ]]; then
     exit 1
 fi
 
-# List R devel dependencies
-gcc --version
-g++ --version
-gfortran --version
+# List R devel dependencies: C compiler, C++ compiler, Fortran compiler.
+# These may differ by R version and platform, but are usually gcc, g++, gfortran.
+$(R CMD config CC) --version
+$(R CMD config CXX) --version
+$(R CMD config FC) --version
 
 # List shared library dependencies (e.g. BLAS/LAPACK)
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(R RHOME)/lib ldd $(R RHOME)/lib/libR.so
