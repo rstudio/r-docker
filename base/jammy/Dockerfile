@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:kinetic
 
 LABEL maintainer="Posit Docker <docker@posit.co>"
 
