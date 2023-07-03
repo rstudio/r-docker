@@ -6,7 +6,7 @@ VARIANTS ?= bionic focal jammy centos7 rockylinux8 rockylinux9 opensuse154
 PATCH_VERSIONS ?= 3.1.3 3.2.5 3.3.3 3.4.4 3.5.3 \
 	3.6.0 3.6.1 3.6.2 3.6.3 \
 	4.0.0 4.0.1 4.0.2 4.0.3 4.0.4 4.0.5 \
-	4.1.0 4.1.1 4.1.2 4.1.3 4.2.0 4.2.1 4.2.2 4.2.3 4.3.0
+	4.1.0 4.1.1 4.1.2 4.1.3 4.2.0 4.2.1 4.2.2 4.2.3 4.3.0 4.3.1
 # INCLUDE_PATCH_VERSIONS, if set to `yes`, includes all patch versions in the
 # "all" targets.
 INCLUDE_PATCH_VERSIONS ?= no
