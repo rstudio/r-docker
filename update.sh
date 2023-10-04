@@ -24,6 +24,7 @@ declare -A os_identifiers=(
     [rockylinux8]='centos-8'
     [rockylinux9]='rhel-9'
     [opensuse154]='opensuse-154'
+    [opensuse155]='opensuse-155'
 )
 
 generated_warning() {
@@ -52,7 +53,7 @@ for version in "${!r_versions[@]}"; do
             ;;
             rockylinux9) template='rockylinux'
             ;;
-            opensuse154) template='opensuse'
+            opensuse154|opensuse155) template='opensuse'
             ;;
         esac
 
