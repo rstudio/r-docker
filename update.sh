@@ -16,7 +16,6 @@ declare -A r_versions=(
 )
 
 declare -A os_identifiers=(
-    [bionic]='ubuntu-1804'
     [focal]='ubuntu-2004'
     [jammy]='ubuntu-2204'
     [bullseye]='debian-11'
@@ -45,7 +44,7 @@ for version in "${!r_versions[@]}"; do
         mkdir -p $dir
 
         case "$variant" in
-            bionic|focal|jammy) template='ubuntu'
+            focal|jammy) template='ubuntu'
             ;;
             bullseye|bookworm) template='debian'
             ;;
