@@ -44,7 +44,6 @@ The following distributions are supported:
 
 | Distribution  | Full Name |
 | ------------- |-----------|
-| bionic        | Ubuntu 18.04 |
 | focal         | Ubuntu 20.04 |
 | jammy         | Ubuntu 22.04 |
 | bullseye      | Debian 11 |
