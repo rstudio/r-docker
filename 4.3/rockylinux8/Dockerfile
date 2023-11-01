@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:rockylinux8
 
-ARG R_VERSION=4.3.1
+ARG R_VERSION=4.3.2
 ARG OS_IDENTIFIER=centos-8
 
 # Install R
