@@ -19,14 +19,14 @@ refer to the [Rocker project](https://www.rocker-project.org/).
 These images can be used to execute R:
 
 ```
-docker run --rm -it rstudio/r-base:4.2-focal
+docker run --rm -it rstudio/r-base:4.3-jammy
 ```
 
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
 ```dockerfile
-FROM rstudio/r-base:4.2-focal
+FROM rstudio/r-base:4.3-jammy
 ```
 
 ### Releases and Tags
@@ -46,6 +46,7 @@ The following distributions are supported:
 | ------------- |-----------|
 | focal         | Ubuntu 20.04 |
 | jammy         | Ubuntu 22.04 |
+| noble         | Ubuntu 24.04 |
 | bullseye      | Debian 11 |
 | bookworm      | Debian 12 |
 | centos7       | CentOS 7 |
