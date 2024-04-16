@@ -17,16 +17,13 @@ RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
     /opt/TinyTeX/bin/*/tlmgr option sys_bin /usr/local/bin && \
     /opt/TinyTeX/bin/*/tlmgr path add
 
-# Install pandoc
-RUN mkdir -p /opt/pandoc && \
-    wget -O /opt/pandoc/pandoc.gz https://files.r-hub.io/pandoc/linux-64/pandoc.gz && \
-    gzip -d /opt/pandoc/pandoc.gz && \
-    chmod +x /opt/pandoc/pandoc && \
-    ln -s /opt/pandoc/pandoc /usr/bin/pandoc && \
-    wget -O /opt/pandoc/pandoc-citeproc.gz https://files.r-hub.io/pandoc/linux-64/pandoc-citeproc.gz && \
-    gzip -d /opt/pandoc/pandoc-citeproc.gz && \
-    chmod +x /opt/pandoc/pandoc-citeproc && \
-    ln -s /opt/pandoc/pandoc-citeproc /usr/bin/pandoc-citeproc
+# Install Pandoc
+ARG PANDOC_VERSION=2.19.2
+RUN wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz -O pandoc.tar.gz && \
+    tar -xvf pandoc.tar.gz && \
+    mv pandoc-${PANDOC_VERSION} /opt/pandoc && \
+    ln -s /opt/pandoc/bin/pandoc /usr/local/bin/pandoc && \
+    rm pandoc.tar.gz
 
 # Set default locale
 ENV LANG en_US.UTF-8
