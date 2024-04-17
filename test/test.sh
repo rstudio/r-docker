@@ -28,6 +28,7 @@ Rscript $DIR/testpkg/tests/test.R
 
 # Check that TinyTeX and Pandoc were installed correctly
 tlmgr --version
+pandoc --version
 echo -e '# Title\ncontent' | pandoc --output $DIR/test.pdf
 rm $DIR/test.pdf
 
