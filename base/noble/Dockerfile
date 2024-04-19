@@ -1,0 +1,37 @@
+FROM ubuntu:noble
+
+LABEL maintainer="Posit Docker <docker@posit.co>"
+
+RUN apt-get update -qq && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    apt-transport-https \
+    curl \
+    fontconfig \
+    libcurl4-openssl-dev \
+    locales \
+    perl \
+    sudo \
+    tzdata \
+    wget && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install TinyTeX
+RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
+    /root/.TinyTeX/bin/*/tlmgr path remove && \
+    mv /root/.TinyTeX/ /opt/TinyTeX && \
+    /opt/TinyTeX/bin/*/tlmgr option sys_bin /usr/local/bin && \
+    /opt/TinyTeX/bin/*/tlmgr path add
+
+# Install Pandoc
+ARG PANDOC_VERSION=2.19.2
+RUN wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz -O pandoc.tar.gz && \
+    tar -xvf pandoc.tar.gz && \
+    mv pandoc-${PANDOC_VERSION} /opt/pandoc && \
+    ln -s /opt/pandoc/bin/pandoc /usr/local/bin/pandoc && \
+    rm pandoc.tar.gz
+
+# Set default locale
+ENV LANG C.UTF-8
+
+# Set default timezone
+ENV TZ UTC
