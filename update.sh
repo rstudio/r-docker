@@ -14,6 +14,7 @@ declare -A r_versions=(
     [4.3]='4.3.3'
     [4.4]='4.4.0'
     [devel]='devel'
+    [next]='next'
 )
 
 declare -A os_identifiers=(
