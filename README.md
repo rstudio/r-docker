@@ -52,7 +52,6 @@ The following distributions are supported:
 | centos7       | CentOS 7 |
 | rockylinux8   | Rocky Linux 8 |
 | rockylinux9   | Rocky Linux 9 |
-| opensuse154   | openSUSE 15.4 |
 | opensuse155   | openSUSE 15.5 |
 
 All minor versions of R since 3.1 are supported, on the latest patch release.
