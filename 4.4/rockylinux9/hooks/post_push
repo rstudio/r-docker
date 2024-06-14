@@ -5,4 +5,4 @@ function add_tag() {
     docker push $DOCKER_REPO:$1
 }
 
-add_tag 4.4.0-rockylinux9
+add_tag 4.4.1-rockylinux9
