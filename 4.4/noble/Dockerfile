@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=rstudio/r-base
 FROM ${BASE_IMAGE}:noble
 
-ARG R_VERSION=4.4.0
+ARG R_VERSION=4.4.1
 ARG OS_IDENTIFIER=ubuntu-2404
 
 # Install R
