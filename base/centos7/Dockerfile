@@ -1,6 +1,9 @@
 FROM centos:centos7
 LABEL maintainer="Posit Docker <docker@posit.co>"
 
+# Use vault.centos.org since CentOS 7 is EOL and the official mirrors are no longer available
+RUN sed -i -e 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/*
+
 RUN yum -y update && \
     yum -y install \
     fontconfig \
