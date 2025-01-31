@@ -1,4 +1,5 @@
-BASE_IMAGE ?= rstudio/r-base
+BASE_IMAGE ?= posit/r-base
+BASE_IMAGE_RSTUDIO ?= rstudio/r-base
 VERSIONS ?= 3.1 3.2 3.3 3.4 3.5 3.6 4.0 4.1 4.2 4.3 4.4 devel next
 VARIANTS ?= focal jammy noble bullseye bookworm centos7 rockylinux8 rockylinux9 opensuse155 opensuse156
 
@@ -60,6 +61,10 @@ push-$(version)-$(variant):
 	docker push $(BASE_IMAGE):$(version)-$(variant)
 	IMAGE_NAME=$(BASE_IMAGE):$(version)-$(variant) DOCKER_REPO=$(BASE_IMAGE) bash ./$(version)/$(variant)/hooks/post_push
 
+push-rstudio-$(version)-$(variant):
+	docker push $(BASE_IMAGE_RSTUDIO):$(version)-$(variant)
+	IMAGE_NAME=$(BASE_IMAGE_RSTUDIO):$(version)-$(variant) DOCKER_REPO=$(BASE_IMAGE_RSTUDIO) bash ./$(version)/$(variant)/hooks/post_push
+
 BUILD_R_IMAGES += build-$(version)-$(variant)
 REBUILD_R_IMAGES += rebuild-$(version)-$(variant)
 TEST_R_IMAGES += test-$(version)-$(variant)
@@ -109,12 +114,16 @@ pull-$(version)-$(variant):
 push-$(version)-$(variant):
 	docker push $(BASE_IMAGE):$(version)-$(variant)
 
+push-rstudio-$(version)-$(variant):
+	docker push $(BASE_IMAGE_RSTUDIO):$(version)-$(variant)
+
 ifeq (yes,$(INCLUDE_PATCH_VERSIONS))
 BUILD_R_IMAGES += build-$(version)-$(variant)
 REBUILD_R_IMAGES += rebuild-$(version)-$(variant)
 TEST_R_IMAGES += test-$(version)-$(variant)
 PULL_R_IMAGES += pull-$(version)-$(variant)
 PUSH_R_IMAGES += push-$(version)-$(variant)
+PUSH_R_IMAGES_RSTUDIO += push-rstudio-$(version)-$(variant)
 endif
 endef
 
@@ -133,6 +142,8 @@ test-all: $(TEST_R_IMAGES)
 pull-all: $(PULL_R_IMAGES)
 
 push-all: $(PUSH_R_IMAGES)
+
+push-all-rstudio: $(PUSH_R_IMAGES_RSTUDIO)
 
 print-variants:
 	@echo $(VARIANTS)
