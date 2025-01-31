@@ -1,5 +1,7 @@
 # Posit R Docker Images
 
+!!!warning These images have moved to `posit/r-base` on Docker Hub. The images at `rstudio/r-base` will continue to be updated for now, but will be deprecated in the future.
+
 [![R Docker](https://github.com/rstudio/r-docker/actions/workflows/build.yml/badge.svg)](https://github.com/rstudio/r-docker/actions/workflows/build.yml)
 
 Posit creates and [distributes an opinionated set of R
@@ -19,14 +21,14 @@ refer to the [Rocker project](https://www.rocker-project.org/).
 These images can be used to execute R:
 
 ```
-docker run --rm -it rstudio/r-base:4.3-jammy
+docker run --rm -it posit/r-base:4.3-jammy
 ```
 
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
 ```dockerfile
-FROM rstudio/r-base:4.3-jammy
+FROM posit/r-base:4.3-jammy
 ```
 
 ### Releases and Tags
@@ -35,9 +37,9 @@ The images follow these tag patterns:
 
 | Pattern | Example | Description |
 | --- | --- | --- | 
-| `rstudio/r-base:distro` | `rstudio/r-base:focal` |  Base operating system + system libraries required by R. |
-| `rstudio/r-base:x.y.z-distro` | `rstudio/r-base:4.0.3-focal` | R version `x.y.z` on the specified OS |
-| `rstudio/r-base:x.y-distro` | `rstudio/r-base:4.0-focal` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 4.0.4 is released, `rstudio/r-base:4.0-focal` would switch from R 4.0.3 to R 4.0.4.|
+| `posit/r-base:distro` | `posit/r-base:focal` |  Base operating system + system libraries required by R. |
+| `posit/r-base:x.y.z-distro` | `posit/r-base:4.0.3-focal` | R version `x.y.z` on the specified OS |
+| `posit/r-base:x.y-distro` | `posit/r-base:4.0-focal` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 4.0.4 is released, `posit/r-base:4.0-focal` would switch from R 4.0.3 to R 4.0.4.|
 
 
 The following distributions are supported:  

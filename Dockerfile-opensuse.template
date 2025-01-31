@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=rstudio/r-base
+ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:%%VARIANT%%
 
 ARG R_VERSION=%%R_VERSION%%
