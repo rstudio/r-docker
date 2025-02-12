@@ -53,6 +53,10 @@ on:
         required: true
       DOCKERHUB_TOKEN:
         required: true
+      RSTUDIO_DOCKERHUB_USERNAME:
+        required: true
+      RSTUDIO_DOCKERHUB_TOKEN:
+        required: true
 
 permissions:
   contents: read
@@ -61,11 +65,11 @@ jobs:
   setup-matrix:
     runs-on: ubuntu-latest
     outputs:
-      variants: ${{ steps.setup-matrix.outputs.variants }}
+      matrix: ${{ steps.setup-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up matrix of variants
+      - name: Set up matrix
         id: setup-matrix
         run: |
           if [[ "${{ inputs.variants }}" != "" ]]; then
@@ -73,19 +77,40 @@ jobs:
           else
             variants="$(make print-variants)"
           fi
-          variants=$(echo "$variants" | jq -R -c '[splits(" ")]')
-          echo "variants=$variants" >> $GITHUB_OUTPUT
+          
+          # Create matrix combining variants with organization repo
+          matrix=$(echo "$variants" | tr ' ' '\n' | jq -R -n '
+          {
+            "include": [
+              ( inputs | select(length>0) as $variant | [
+                {
+                  variant: $variant,
+                  username_secret: "DOCKERHUB_USERNAME",
+                  token_secret: "DOCKERHUB_TOKEN",
+                  repo: "posit/r-base"
+                },
+                {
+                  variant: $variant,
+                  username_secret: "RSTUDIO_DOCKERHUB_USERNAME",
+                  token_secret: "RSTUDIO_DOCKERHUB_TOKEN",
+                  repo: "rstudio/r-base"
+                }
+              ] )
+              | .[]
+            ]
+          }' | jq -c .)
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
 
   docker-images:
     needs: setup-matrix
     strategy:
       fail-fast: false
-      matrix:
-        variant: ${{ fromJson(needs.setup-matrix.outputs.variants) }}
+      matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
-    name: Docker images (${{ matrix.variant }})
+    name: Docker images (${{ matrix.repo }}:${{ matrix.variant }})
     env:
       VARIANTS: ${{ matrix.variant }}
+      BASE_IMAGE: ${{ matrix.repo }}
     steps:
       - uses: actions/checkout@v3
 
@@ -95,11 +120,11 @@ jobs:
           driver: docker
           install: true
 
-      - name: Login to Posit DockerHub
+      - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets[matrix.username_secret] }}
+          password: ${{ secrets[matrix.token_secret] }}
 
       - name: Setup environment
         run: |
@@ -119,18 +144,7 @@ jobs:
         run: |
           make test-all
 
-      - name: Push Posit images
+      - name: Push images
         if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
         run: |
           make push-all
-
-      - name: Login to RStudio DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.RSTUDIO_DOCKERHUB_USERNAME }}
-          password: ${{ secrets.RSTUDIO_DOCKERHUB_TOKEN }}
-
-      - name: Push RStudio images
-        if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
-        run: |
-          make push-all-rstudio
