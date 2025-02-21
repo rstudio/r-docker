@@ -142,9 +142,7 @@ jobs:
 
       - name: Test images
         run: |
-          echo "skipping tests for now because they are broken"
-          # TODO fix tests and re-enable
-          # make test-all
+          make test-all
 
       - name: Push images
         if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
