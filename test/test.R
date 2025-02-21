@@ -2,8 +2,8 @@
 options(repos = c("https://cloud.r-project.org", "http://cloud.r-project.org"))
 
 # Check that packages can be installed
-install.packages("R6")
-library(R6)
+install.packages("testit")
+library(testit)
 
 # Check that the time zone database is present
 # https://stat.ethz.ch/R-manual/R-devel/library/base/html/timezones.html
