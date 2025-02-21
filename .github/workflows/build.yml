@@ -106,6 +106,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
+      # Reduce max-parallel in case of `out of space` errors, particularly on the full patch version builds
+      max-parallel: 10
     runs-on: ubuntu-latest-4x
     name: Docker images (${{ matrix.repo }}:${{ matrix.variant }})
     env:
