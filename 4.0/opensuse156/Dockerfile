@@ -4,7 +4,7 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-ARG BASE_IMAGE=rstudio/r-base
+ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:opensuse156
 
 ARG R_VERSION=4.0.5

@@ -4,7 +4,7 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-ARG BASE_IMAGE=rstudio/r-base
+ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:centos7
 
 ARG R_VERSION=3.4.4

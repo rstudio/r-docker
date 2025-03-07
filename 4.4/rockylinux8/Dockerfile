@@ -4,10 +4,10 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-ARG BASE_IMAGE=rstudio/r-base
+ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:rockylinux8
 
-ARG R_VERSION=4.4.1
+ARG R_VERSION=4.4.3
 ARG OS_IDENTIFIER=centos-8
 
 # Install R
