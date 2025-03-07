@@ -4,10 +4,10 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-ARG BASE_IMAGE=rstudio/r-base
+ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:bullseye
 
-ARG R_VERSION=4.4.1
+ARG R_VERSION=4.4.3
 ARG OS_IDENTIFIER=debian-11
 
 # Install R
