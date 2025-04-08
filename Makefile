@@ -2,7 +2,7 @@ BASE_IMAGE_POSIT ?= posit/r-base
 BASE_IMAGE_RSTUDIO ?= rstudio/r-base
 BASE_IMAGE ?= $(BASE_IMAGE_POSIT)
 VERSIONS ?= 3.1 3.2 3.3 3.4 3.5 3.6 4.0 4.1 4.2 4.3 4.4 devel next
-VARIANTS ?= focal jammy noble bullseye bookworm centos7 rockylinux8 rockylinux9 opensuse156
+VARIANTS ?= focal jammy noble bookworm centos7 rockylinux8 rockylinux9 opensuse156
 
 # PATCH_VERSIONS defines all actively maintained R patch versions.
 PATCH_VERSIONS ?= 3.1.3 3.2.5 3.3.3 3.4.4 3.5.3 \
@@ -19,7 +19,7 @@ INCLUDE_PATCH_VERSIONS ?= no
 all: build-all test-all
 
 update-all-docker:
-	docker run -it --rm -v $(PWD):/r-docker -w /r-docker ubuntu:focal /r-docker/update.sh
+	docker run -it --rm -v $(PWD):/r-docker -w /r-docker ubuntu:noble /r-docker/update.sh
 
 update-all:
 	@./update.sh

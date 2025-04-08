@@ -37,9 +37,9 @@ The images follow these tag patterns:
 
 | Pattern | Example | Description |
 | --- | --- | --- | 
-| `posit/r-base:distro` | `posit/r-base:focal` |  Base operating system + system libraries required by R. |
-| `posit/r-base:x.y.z-distro` | `posit/r-base:4.0.3-focal` | R version `x.y.z` on the specified OS |
-| `posit/r-base:x.y-distro` | `posit/r-base:4.0-focal` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 4.0.4 is released, `posit/r-base:4.0-focal` would switch from R 4.0.3 to R 4.0.4.|
+| `posit/r-base:distro` | `posit/r-base:noble` |  Base operating system + system libraries required by R. |
+| `posit/r-base:x.y.z-distro` | `posit/r-base:4.4.3-noble` | R version `x.y.z` on the specified OS |
+| `posit/r-base:x.y-distro` | `posit/r-base:4.4-noble` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 4.4.4 is released, `posit/r-base:4.4-noble` would switch from R 4.4.3 to R 4.4.4.|
 
 
 The following distributions are supported:  
@@ -49,7 +49,6 @@ The following distributions are supported:
 | focal         | Ubuntu 20.04 |
 | jammy         | Ubuntu 22.04 |
 | noble         | Ubuntu 24.04 |
-| bullseye      | Debian 11 |
 | bookworm      | Debian 12 |
 | centos7       | CentOS 7 |
 | rockylinux8   | Rocky Linux 8 |
@@ -110,20 +109,20 @@ In general, the structure consists of the following:
 make
 
 # Build and test images for a specific R version
-make VERSIONS=4.0
+make VERSIONS=4.4
 
 # Build and test images for a specific distro
-make VARIANTS=focal
+make VARIANTS=noble
 
 # Build a specific image
-make build-4.0-focal
+make build-4.4-noble
 # Build a specific patch version
-make build-4.0.3-focal
+make build-4.4.3-noble
 
 # Test a specific image
-make test-4.0-focal
+make test-4.4-noble
 # Test a specific patch version
-make test-4.0.3-focal
+make test-4.4.3-noble
 
 # Build and test all images, including historic patch versions
 make INCLUDE_PATCH_VERSIONS=yes
@@ -154,5 +153,5 @@ This ignores the Docker cache and reinstalls R in the image.
 make rebuild-all
 
 # Rebuild a specific image.
-make rebuild-3.4-focal
+make rebuild-4.4-noble
 ```
