@@ -24,9 +24,9 @@ RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
 
 # Install Pandoc
 ARG PANDOC_VERSION=2.19.2
-RUN wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz -O pandoc.tar.gz && \
+RUN wget "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-$(dpkg --print-architecture).tar.gz" -O pandoc.tar.gz && \
     tar -xvf pandoc.tar.gz && \
-    mv pandoc-${PANDOC_VERSION} /opt/pandoc && \
+    mv "pandoc-${PANDOC_VERSION}" /opt/pandoc && \
     ln -s /opt/pandoc/bin/pandoc /usr/local/bin/pandoc && \
     rm pandoc.tar.gz
 
