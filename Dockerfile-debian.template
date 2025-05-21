@@ -11,7 +11,7 @@ RUN wget "https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_$(dpkg -
     ln -s "/opt/R/${R_VERSION}/bin/R" /usr/bin/R && \
     ln -s "/opt/R/${R_VERSION}/bin/Rscript" /usr/bin/Rscript && \
     ln -s "/opt/R/${R_VERSION}/lib/R" /usr/lib/R && \
-    rm "r-${R_VERSION}_1_$(arch).deb" && \
+    rm "r-${R_VERSION}_1_$(dpkg --print-architecture).deb" && \
     rm -rf /var/lib/apt/lists/*
 
 CMD ["R"]
