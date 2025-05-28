@@ -16,6 +16,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/*
 
 # Install TinyTeX
+ENV TINYTEX_VERSION=2025.05
 RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
     /root/.TinyTeX/bin/*/tlmgr path remove && \
     mv /root/.TinyTeX/ /opt/TinyTeX && \
