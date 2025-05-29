@@ -3,6 +3,8 @@ LABEL maintainer="Posit Docker <docker@posit.co>"
 
 RUN dnf -y update && \
     dnf -y install \
+    # Some R packages rely on the find command in their configuration scripts
+    findutils \
     fontconfig \
     glibc-langpack-en \
     perl-Digest-MD5 \

@@ -32,5 +32,8 @@ pandoc --version
 echo -e '# Title\ncontent' | pandoc --output $DIR/test.pdf
 rm $DIR/test.pdf
 
+# find should be installed, as some R packages depend on it implicitly
+find --version
+
 # R tests
 Rscript $DIR/test.R
