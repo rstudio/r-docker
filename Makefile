@@ -61,7 +61,7 @@ pull-$(version)-$(variant):
 
 push-$(version)-$(variant):
 	docker push $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX)
-	IMAGE_NAME=$(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) DOCKER_REPO=$(BASE_IMAGE) bash ./$(version)/$(variant)/hooks/post_push
+	IMAGE_NAME=$(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) DOCKER_REPO=$(BASE_IMAGE) TAG_SUFFIX=$(TAG_SUFFIX) bash ./$(version)/$(variant)/hooks/post_push
 
 retag-$(version)-$(variant):
 	docker tag $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) $(BASE_IMAGE_RSTUDIO):$(version)-$(variant)$(TAG_SUFFIX)
