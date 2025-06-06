@@ -1,6 +1,7 @@
 # Posit R Docker Images
 
-!!!warning These images have moved to `posit/r-base` on Docker Hub. The images at `rstudio/r-base` will continue to be updated for now, but will be deprecated in the future.
+> [!NOTE]
+> These images have moved to `posit/r-base` on Docker Hub. The images at `rstudio/r-base` will continue to be updated for now, but will be deprecated in the future.
 
 [![R Docker](https://github.com/rstudio/r-docker/actions/workflows/build.yml/badge.svg)](https://github.com/rstudio/r-docker/actions/workflows/build.yml)
 
