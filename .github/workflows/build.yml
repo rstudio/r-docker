@@ -94,21 +94,22 @@ jobs:
         run: |
           if [[ "${{ inputs.variants }}" != "" ]]; then
             variants="${{ inputs.variants }}"
-            variants_arm64="${{ inputs.variants }}"
           else
             variants="$(make print-variants)"
-            variants_arm64="$(make print-variants-arm64)"
           fi
           variants=$(echo "$variants" | jq -R -c '[splits(" ")]')
           echo "variants=$variants" >> $GITHUB_OUTPUT
-          variants_arm64=$(echo "$variants_arm64" | jq -R -c '[splits(" ")]')
+
+          # centos7 is not supported on arm64, so filter it out for arm64 builds.
+          # This can be removed once centos7 is no longer supported.
+          variants_arm64=$(echo "$variants" | jq -c 'map(select(. != "centos7"))')
           echo "variants_arm64=$variants_arm64" >> $GITHUB_OUTPUT
 
           # Convert comma-separated list of architectures to JSON array
           arch=$(echo "${{ inputs.arch || 'amd64,arm64' }}" | jq -Rc 'split(",")')
           echo "arch=$arch" >> $GITHUB_OUTPUT
 
-  docker-images:
+  docker-images-amd64:
     needs: setup-matrix
     if: contains(needs.setup-matrix.outputs.arch, '"amd64"')
     strategy:
@@ -160,9 +161,16 @@ jobs:
       - name: Push images
         if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
         run: |
-          make push-all
+          if [[ "${{ matrix.variant }}" != "centos7" ]]; then
+            make push-all
+          else
+            # centos7 is not supported on arm64, so we push the amd64 image only.
+            # This can be removed once centos7 is no longer supported.
+            make push-all ARCH=
+          fi
 
-      # Push images to deprecated rstudio repository
+      # Push images to deprecated rstudio repository.
+      # Multiarch images are not supported here, only amd64.
       - name: Login to Docker Hub (rstudio)
         uses: docker/login-action@v3
         with:
@@ -172,8 +180,7 @@ jobs:
       - name: Push images (rstudio)
         if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
         run: |
-          make retag-all
-          BASE_IMAGE=rstudio/r-base make push-all
+          TARGET_BASE_IMAGE=rstudio/r-base ARCH= make push-all
 
   # arm64 images are built in a separate job with different platform support, and no pushes
   # to the deprecated rstudio repository.
@@ -218,8 +225,6 @@ jobs:
             echo "INCLUDE_PATCH_VERSIONS=yes" >> $GITHUB_ENV
           fi
 
-          echo "TAG_SUFFIX=-arm64" >> $GITHUB_ENV
-
       - name: Build images
         run: |
           make build-all
@@ -232,3 +237,47 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
         run: |
           make push-all
+
+  # Publish multi-platform images (manifests). Only done when both architectures are built..
+  publish-manifest:
+    runs-on: ubuntu-latest
+    name: Publish multi-platform image (${{ matrix.variant }})
+    needs: [setup-matrix, docker-images-amd64, docker-images-arm64]
+    if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJson(needs.setup-matrix.outputs.variants_arm64) }}
+    env:
+      VARIANTS: ${{ matrix.variant }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          # Use the docker driver since the default driver (docker-container) does not work well
+          # with building images that depend on another local image.
+          # https://github.com/docker/buildx/issues/847
+          driver: docker
+          install: true
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Setup environment
+        run: |
+          if [[ "${{ inputs.versions }}" != "" ]]; then
+            echo "VERSIONS=${{ inputs.versions }}" >> $GITHUB_ENV
+          fi
+
+          if [[ "${{ inputs.include_patch_versions }}" == "true" ]]; then
+            echo "INCLUDE_PATCH_VERSIONS=yes" >> $GITHUB_ENV
+          fi
+
+      - name: Create and push manifest
+        run: |
+          make push-multiarch-all

@@ -1,9 +1,6 @@
-BASE_IMAGE_POSIT ?= posit/r-base
-BASE_IMAGE_RSTUDIO ?= rstudio/r-base
-BASE_IMAGE ?= $(BASE_IMAGE_POSIT)
+BASE_IMAGE ?= posit/r-base
 VERSIONS ?= 3.1 3.2 3.3 3.4 3.5 3.6 4.0 4.1 4.2 4.3 4.4 4.5 devel next
 VARIANTS ?= focal jammy noble bookworm centos7 rockylinux8 rockylinux9 opensuse156
-VARIANTS_ARM64 ?= jammy noble bookworm rockylinux8 rockylinux9 opensuse156
 
 # PATCH_VERSIONS defines all actively maintained R patch versions.
 PATCH_VERSIONS ?= 3.1.3 3.2.5 3.3.3 3.4.4 3.5.3 \
@@ -18,10 +15,17 @@ PATCH_VERSIONS ?= 3.1.3 3.2.5 3.3.3 3.4.4 3.5.3 \
 # "all" targets.
 INCLUDE_PATCH_VERSIONS ?= no
 
-# Optional -amd64 or -arm64 suffix for the image tags.
-TAG_SUFFIX ?=
+# Architecture used for the image tags, either amd64 or arm64.
+# ARCH can be omitted to directly push a single arch image.
+ARCH ?= $(shell arch | sed -e 's/aarch64/arm64/' -e 's/x86_64/amd64/')
+
+# When set, pushes to an alternate base image (used for pushing to the deprecated rstudio/r-base).
+TARGET_BASE_IMAGE ?=
 
 all: build-all test-all
+
+arch:
+	@echo $(ARCH)
 
 update-all-docker:
 	docker run -it --rm -v $(PWD):/r-docker -w /r-docker ubuntu:noble /r-docker/update.sh
@@ -40,38 +44,37 @@ push-base-%:
 
 define GEN_R_IMAGE_TARGETS
 build-$(version)-$(variant): build-base-$(variant)
-	docker build -t $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) \
+	docker build -t $(BASE_IMAGE):$(version)-$(variant) \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		$(version)/$(variant)/.
 
 rebuild-$(version)-$(variant): build-base-$(variant)
-	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
+	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
 
 test-$(version)-$(variant):
 	docker run --rm -v $(PWD)/test:/test \
 		-e TAG_VERSION=$(version) \
-		$(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) \
+		$(BASE_IMAGE):$(version)-$(variant) \
 		bash -l /test/test.sh
 
 bash-$(version)-$(variant):
-	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) bash
+	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
 
 pull-$(version)-$(variant):
-	docker pull $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX)
+	docker pull $(BASE_IMAGE):$(version)-$(variant)
 
 push-$(version)-$(variant):
-	docker push $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX)
-	IMAGE_NAME=$(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) DOCKER_REPO=$(BASE_IMAGE) TAG_SUFFIX=$(TAG_SUFFIX) bash ./$(version)/$(variant)/hooks/post_push
+	BASE_IMAGE=$(BASE_IMAGE) TARGET_BASE_IMAGE=$(TARGET_BASE_IMAGE) VERSION=$(version) VARIANT=$(variant) ARCH=$(ARCH) bash ./push-images.sh
 
-retag-$(version)-$(variant):
-	docker tag $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) $(BASE_IMAGE_RSTUDIO):$(version)-$(variant)$(TAG_SUFFIX)
+push-multiarch-$(version)-$(variant):
+	BASE_IMAGE=$(BASE_IMAGE) VERSION=$(version) VARIANT=$(variant) bash ./push-multiarch.sh
 
 BUILD_R_IMAGES += build-$(version)-$(variant)
 REBUILD_R_IMAGES += rebuild-$(version)-$(variant)
 TEST_R_IMAGES += test-$(version)-$(variant)
 PULL_R_IMAGES += pull-$(version)-$(variant)
 PUSH_R_IMAGES += push-$(version)-$(variant)
-RETAG_R_IMAGES += retag-$(version)-$(variant)
+PUSH_MULTIARCH_R_IMAGES += push-multiarch-$(version)-$(variant)
 endef
 
 $(foreach variant,$(VARIANTS), \
@@ -86,13 +89,13 @@ endef
 
 define GEN_R_PATCH_IMAGE_TARGETS
 build-$(version)-$(variant): build-base-$(variant)
-	docker build -t $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) \
+	docker build -t $(BASE_IMAGE):$(version)-$(variant) \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--build-arg R_VERSION=$(version) \
 		$(minor_version)/$(variant)/.
 
 rebuild-$(version)-$(variant): build-base-$(variant)
-	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) \
+	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--build-arg R_VERSION=$(version) \
 		$(minor_version)/$(variant)/.
@@ -100,20 +103,20 @@ rebuild-$(version)-$(variant): build-base-$(variant)
 test-$(version)-$(variant):
 	docker run --rm -v $(PWD)/test:/test \
 		-e TAG_VERSION=$(version) \
-		$(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) \
+		$(BASE_IMAGE):$(version)-$(variant) \
 		bash -l /test/test.sh
 
 bash-$(version)-$(variant):
-	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) bash
+	docker run -it --rm -v $(PWD)/test:/test $(BASE_IMAGE):$(version)-$(variant) bash
 
 pull-$(version)-$(variant):
-	docker pull $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX)
+	docker pull $(BASE_IMAGE):$(version)-$(variant)
 
 push-$(version)-$(variant):
-	docker push $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX)
+	BASE_IMAGE=$(BASE_IMAGE) TARGET_BASE_IMAGE=$(TARGET_BASE_IMAGE) VERSION=$(version) VARIANT=$(variant) ARCH=$(ARCH) bash ./push-images.sh
 
-retag-$(version)-$(variant):
-	docker tag $(BASE_IMAGE):$(version)-$(variant)$(TAG_SUFFIX) $(BASE_IMAGE_RSTUDIO):$(version)-$(variant)$(TAG_SUFFIX)
+push-multiarch-$(version)-$(variant):
+	BASE_IMAGE=$(BASE_IMAGE) VERSION=$(version) VARIANT=$(variant) bash ./push-multiarch.sh
 
 ifeq (yes,$(INCLUDE_PATCH_VERSIONS))
 BUILD_R_IMAGES += build-$(version)-$(variant)
@@ -121,7 +124,7 @@ REBUILD_R_IMAGES += rebuild-$(version)-$(variant)
 TEST_R_IMAGES += test-$(version)-$(variant)
 PULL_R_IMAGES += pull-$(version)-$(variant)
 PUSH_R_IMAGES += push-$(version)-$(variant)
-RETAG_R_IMAGES += retag-$(version)-$(variant)
+PUSH_MULTIARCH_R_IMAGES += push-multiarch-$(version)-$(variant)
 endif
 endef
 
@@ -141,10 +144,7 @@ pull-all: $(PULL_R_IMAGES)
 
 push-all: $(PUSH_R_IMAGES)
 
-retag-all: $(RETAG_R_IMAGES)
+push-multiarch-all: $(PUSH_MULTIARCH_R_IMAGES)
 
 print-variants:
 	@echo $(VARIANTS)
-
-print-variants-arm64:
-	@echo $(VARIANTS_ARM64)
