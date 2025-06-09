@@ -69,8 +69,6 @@ for version in "${!r_versions[@]}"; do
             -e "s/%%OS_IDENTIFIER%%/${os_identifiers[$variant]}/" \
             "$dir/Dockerfile"
 
-        cp docker-compose.test.yml $dir
-
         # Record MAJOR.MINOR.PATCH version as the tag alias
         echo "${r_versions[$version]}" > "$dir/version.txt"
     done
