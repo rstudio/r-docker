@@ -243,7 +243,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Publish multi-platform image (${{ matrix.variant }})
     needs: [setup-matrix, docker-images-amd64, docker-images-arm64]
-    if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
+    if: ${{ (github.ref == 'refs/heads/main' || inputs.publish_images) && needs.setup-matrix.outputs.variants_arm64 != '[]' }}
     strategy:
       fail-fast: false
       matrix:
