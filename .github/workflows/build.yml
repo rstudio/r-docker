@@ -188,7 +188,7 @@ jobs:
   # to the deprecated rstudio repository.
   docker-images-arm64:
     needs: setup-matrix
-    if: contains(needs.setup-matrix.outputs.arch, '"arm64"')
+    if: contains(needs.setup-matrix.outputs.arch, '"arm64"') && needs.setup-matrix.outputs.variants_arm64 != '[]'
     strategy:
       fail-fast: false
       matrix:
@@ -245,7 +245,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Publish multi-platform image (${{ matrix.variant }})
     needs: [setup-matrix, docker-images-amd64, docker-images-arm64]
-    if: ${{ (github.ref == 'refs/heads/main' || inputs.publish_images) && needs.setup-matrix.outputs.variants_arm64 != '[]' }}
+    if: ${{ (github.ref == 'refs/heads/main' || inputs.publish_images) }}
     strategy:
       fail-fast: false
       matrix:
