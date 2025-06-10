@@ -99,16 +99,18 @@ jobs:
           fi
           variants=$(echo "$variants" | jq -R -c '[splits(" ")]')
           echo "variants=$variants" >> $GITHUB_OUTPUT
+          echo "variants: $variants"
 
           # centos7 is not supported on arm64, so filter it out for arm64 builds.
           # This can be removed once centos7 is no longer supported.
           variants_arm64=$(echo "$variants" | jq -c 'map(select(. != "centos7"))')
           echo "variants_arm64=$variants_arm64" >> $GITHUB_OUTPUT
+          echo "variants_arm64: $variants_arm64"
 
           # Convert comma-separated list of architectures to JSON array
           arch=$(echo "${{ inputs.arch || 'amd64,arm64' }}" | jq -Rc 'split(",")')
           echo "arch=$arch" >> $GITHUB_OUTPUT
-
+          echo "arch: $arch"
   docker-images-amd64:
     needs: setup-matrix
     if: contains(needs.setup-matrix.outputs.arch, '"amd64"')
