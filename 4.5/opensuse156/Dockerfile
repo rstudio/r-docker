@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:opensuse156
 
-ARG R_VERSION=4.5.0
+ARG R_VERSION=4.5.1
 ARG OS_IDENTIFIER=opensuse-156
 
 # Install R
