@@ -11,12 +11,12 @@ ARG R_VERSION=3.4.4
 ARG OS_IDENTIFIER=opensuse-156
 
 # Install R
-RUN wget https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.x86_64.rpm && \
-    zypper --non-interactive --no-gpg-checks install ./R-${R_VERSION}-1-1.x86_64.rpm && \
-    ln -s /opt/R/${R_VERSION}/bin/R /usr/bin/R && \
-    ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/bin/Rscript && \
-    ln -s /opt/R/${R_VERSION}/lib/R /usr/lib/R && \
-    rm R-${R_VERSION}-1-1.x86_64.rpm && \
+RUN wget "https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/R-${R_VERSION}-1-1.$(arch).rpm" && \
+    zypper --non-interactive --no-gpg-checks install "./R-${R_VERSION}-1-1.$(arch).rpm" && \
+    ln -s "/opt/R/${R_VERSION}/bin/R" /usr/bin/R && \
+    ln -s "/opt/R/${R_VERSION}/bin/Rscript" /usr/bin/Rscript && \
+    ln -s "/opt/R/${R_VERSION}/lib/R" /usr/lib/R && \
+    rm "R-${R_VERSION}-1-1.$(arch).rpm" && \
     zypper clean --all
 
 CMD ["R"]
