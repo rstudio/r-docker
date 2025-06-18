@@ -87,7 +87,7 @@ jobs:
       variants_arm64: ${{ steps.setup-matrix.outputs.variants_arm64 }}
       arch: ${{ steps.setup-matrix.outputs.arch }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up matrix
         id: setup-matrix
@@ -125,7 +125,7 @@ jobs:
     env:
       VARIANTS: ${{ matrix.variant }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -200,7 +200,7 @@ jobs:
     env:
       VARIANTS: ${{ matrix.variant }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -253,7 +253,7 @@ jobs:
     env:
       VARIANTS: ${{ matrix.variant }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
