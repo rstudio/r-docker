@@ -69,12 +69,7 @@ for version in "${!r_versions[@]}"; do
             -e "s/%%OS_IDENTIFIER%%/${os_identifiers[$variant]}/" \
             "$dir/Dockerfile"
 
-        cp docker-compose.test.yml $dir
-
-        # Add MAJOR.MINOR.PATCH version tags
-        mkdir -p "$dir/hooks" && cp post_push.template.sh "$dir/hooks/post_push"
-        sed -ri \
-            -e "s/%%TAG%%/${r_versions[$version]}-${variant}/" \
-            "$dir/hooks/post_push"
+        # Record MAJOR.MINOR.PATCH version as the tag alias
+        echo "${r_versions[$version]}" > "$dir/version.txt"
     done
 done

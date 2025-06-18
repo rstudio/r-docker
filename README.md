@@ -22,14 +22,14 @@ refer to the [Rocker project](https://www.rocker-project.org/).
 These images can be used to execute R:
 
 ```
-docker run --rm -it posit/r-base:4.3-jammy
+docker run --rm -it posit/r-base:4.5-noble
 ```
 
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
 ```dockerfile
-FROM posit/r-base:4.3-jammy
+FROM posit/r-base:4.5-noble
 ```
 
 ### Releases and Tags
@@ -43,7 +43,7 @@ The images follow these tag patterns:
 | `posit/r-base:x.y-distro` | `posit/r-base:4.4-noble` | Latest R version `x.y.z` on the specified OS, where the patch version `z` floats over time. For example, if R 4.4.4 is released, `posit/r-base:4.4-noble` would switch from R 4.4.3 to R 4.4.4.|
 
 
-The following distributions are supported:  
+The following distributions are supported for both `x86_64`/`amd64` and `aarch64`/`arm64`:
 
 | Distribution  | Full Name |
 | ------------- |-----------|
@@ -51,7 +51,7 @@ The following distributions are supported:
 | jammy         | Ubuntu 22.04 |
 | noble         | Ubuntu 24.04 |
 | bookworm      | Debian 12 |
-| centos7       | CentOS 7 |
+| centos7       | CentOS 7* |
 | rockylinux8   | Rocky Linux 8 |
 | rockylinux9   | Rocky Linux 9 |
 | opensuse156   | openSUSE 15.6 |
@@ -64,6 +64,7 @@ some delay between the release of R and the release of the Docker image.
 
 New operating systems are added on a less frequent basis. 
 
+`arm64` images are not supported for CentOS 7.
 
 ### What is R?
 
@@ -156,3 +157,7 @@ make rebuild-all
 # Rebuild a specific image.
 make rebuild-4.4-noble
 ```
+
+### Publishing Images
+
+See [`build.yml`](https://github.com/rstudio/r-docker/actions/workflows/build.yml) for the GitHub Actions workflow that builds these images.
