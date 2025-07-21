@@ -74,17 +74,17 @@ PUSH_R_IMAGES += push-$(version)-$(variant)
 PUSH_MULTIARCH_R_IMAGES += push-multiarch-$(version)-$(variant)
 endef
 
+define minor_version
+$(shell echo $(version) | cut -d. -f-2)
+endef
+
 $(foreach variant,$(VARIANTS), \
   $(foreach version,$(VERSIONS), \
-    $(if $(wildcard $(version)/$(variant)), \
+    $(if $(wildcard $(minor_version)/$(variant)), \
       $(eval $(GEN_R_IMAGE_TARGETS)) \
     ) \
   ) \
 )
-
-define minor_version
-$(shell echo $(version) | cut -d. -f-2)
-endef
 
 define GEN_R_PATCH_IMAGE_TARGETS
 build-$(version)-$(variant): build-base-$(variant)
