@@ -43,6 +43,12 @@ generated_warning() {
 
 for version in "${!r_versions[@]}"; do
     for variant in "${!os_identifiers[@]}"; do
+        # R 3.x versions are not supported on Rocky Linux 10
+        major=$(cut -d '.' -f1 <<< "$version")
+        if [[ "$variant" == "rockylinux10" ]] && [ "$major" == "3" ]; then
+            continue
+        fi
+
         dir="$version/$variant"
 
         mkdir -p $dir

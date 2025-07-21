@@ -76,7 +76,9 @@ endef
 
 $(foreach variant,$(VARIANTS), \
   $(foreach version,$(VERSIONS), \
-    $(eval $(GEN_R_IMAGE_TARGETS)) \
+    $(if $(wildcard $(version)/$(variant)), \
+      $(eval $(GEN_R_IMAGE_TARGETS)) \
+    ) \
   ) \
 )
 
@@ -127,7 +129,9 @@ endef
 
 $(foreach variant,$(VARIANTS), \
   $(foreach version,$(PATCH_VERSIONS), \
-    $(eval $(GEN_R_PATCH_IMAGE_TARGETS)) \
+    $(if $(wildcard $(minor_version)/$(variant)), \
+      $(eval $(GEN_R_PATCH_IMAGE_TARGETS)) \
+    ) \
   ) \
 )
 
