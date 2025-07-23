@@ -1,6 +1,6 @@
 BASE_IMAGE ?= posit/r-base
 VERSIONS ?= 3.1 3.2 3.3 3.4 3.5 3.6 4.0 4.1 4.2 4.3 4.4 4.5 devel next
-VARIANTS ?= focal jammy noble bookworm centos7 rockylinux8 rockylinux9 opensuse156
+VARIANTS ?= focal jammy noble bookworm centos7 rockylinux8 rockylinux9 rockylinux10 opensuse156
 
 # PATCH_VERSIONS defines all actively maintained R patch versions.
 PATCH_VERSIONS ?= 3.1.3 3.2.5 3.3.3 3.4.4 3.5.3 \
@@ -74,15 +74,17 @@ PUSH_R_IMAGES += push-$(version)-$(variant)
 PUSH_MULTIARCH_R_IMAGES += push-multiarch-$(version)-$(variant)
 endef
 
-$(foreach variant,$(VARIANTS), \
-  $(foreach version,$(VERSIONS), \
-    $(eval $(GEN_R_IMAGE_TARGETS)) \
-  ) \
-)
-
 define minor_version
 $(shell echo $(version) | cut -d. -f-2)
 endef
+
+$(foreach variant,$(VARIANTS), \
+  $(foreach version,$(VERSIONS), \
+    $(if $(wildcard $(minor_version)/$(variant)), \
+      $(eval $(GEN_R_IMAGE_TARGETS)) \
+    ) \
+  ) \
+)
 
 define GEN_R_PATCH_IMAGE_TARGETS
 build-$(version)-$(variant): build-base-$(variant)
@@ -127,7 +129,9 @@ endef
 
 $(foreach variant,$(VARIANTS), \
   $(foreach version,$(PATCH_VERSIONS), \
-    $(eval $(GEN_R_PATCH_IMAGE_TARGETS)) \
+    $(if $(wildcard $(minor_version)/$(variant)), \
+      $(eval $(GEN_R_PATCH_IMAGE_TARGETS)) \
+    ) \
   ) \
 )
 

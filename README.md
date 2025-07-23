@@ -54,6 +54,7 @@ The following distributions are supported for both `x86_64`/`amd64` and `aarch64
 | centos7       | CentOS 7* |
 | rockylinux8   | Rocky Linux 8 |
 | rockylinux9   | Rocky Linux 9 |
+| rockylinux10  | Rocky Linux 10 |
 | opensuse156   | openSUSE 15.6 |
 
 All minor versions of R since 3.1 are supported, on the latest patch release.
