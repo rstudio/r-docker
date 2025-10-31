@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:rockylinux10
 
-ARG R_VERSION=4.5.1
+ARG R_VERSION=4.5.2
 ARG OS_IDENTIFIER=rhel-10
 
 # Install R
