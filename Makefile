@@ -17,7 +17,7 @@ INCLUDE_PATCH_VERSIONS ?= no
 
 # Architecture used for the image tags, either amd64 or arm64.
 # ARCH can be omitted to directly push a single arch image.
-ARCH ?= $(shell arch | sed -e 's/aarch64/arm64/' -e 's/x86_64/amd64/')
+ARCH ?= $(shell uname -m | sed -e 's/aarch64/arm64/' -e 's/x86_64/amd64/')
 
 # When set, pushes to an alternate base image (used for pushing to the deprecated rstudio/r-base).
 TARGET_BASE_IMAGE ?=
