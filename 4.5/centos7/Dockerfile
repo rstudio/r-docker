@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:centos7
 
-ARG R_VERSION=4.5.1
+ARG R_VERSION=4.5.2
 ARG OS_IDENTIFIER=centos-7
 
 # Install R

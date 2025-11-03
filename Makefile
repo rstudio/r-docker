@@ -10,14 +10,14 @@ PATCH_VERSIONS ?= 3.1.3 3.2.5 3.3.3 3.4.4 3.5.3 \
 	4.2.0 4.2.1 4.2.2 4.2.3 \
 	4.3.0 4.3.1 4.3.2 4.3.3 \
 	4.4.0 4.4.1 4.4.2 4.4.3 \
-	4.5.0 4.5.1
+	4.5.0 4.5.1 4.5.2
 # INCLUDE_PATCH_VERSIONS, if set to `yes`, includes all patch versions in the
 # "all" targets.
 INCLUDE_PATCH_VERSIONS ?= no
 
 # Architecture used for the image tags, either amd64 or arm64.
 # ARCH can be omitted to directly push a single arch image.
-ARCH ?= $(shell arch | sed -e 's/aarch64/arm64/' -e 's/x86_64/amd64/')
+ARCH ?= $(shell uname -m | sed -e 's/aarch64/arm64/' -e 's/x86_64/amd64/')
 
 # When set, pushes to an alternate base image (used for pushing to the deprecated rstudio/r-base).
 TARGET_BASE_IMAGE ?=
