@@ -51,13 +51,14 @@ The following distributions are supported for both `x86_64`/`amd64` and `aarch64
 | jammy         | Ubuntu 22.04 |
 | noble         | Ubuntu 24.04 |
 | bookworm      | Debian 12 |
+| trixie        | Debian 13 |
 | centos7       | CentOS 7* |
 | rockylinux8   | Rocky Linux 8 |
 | rockylinux9   | Rocky Linux 9 |
 | rockylinux10  | Rocky Linux 10 |
 | opensuse156   | openSUSE 15.6 |
 
-All minor versions of R since 3.1 are supported, on the latest patch release.
+All minor versions of R since 4.0 are supported, on the latest patch release.
 
 New versions of R are added when they're available on the
 [Posit CDN](https://cdn.posit.co/r/versions.json), though there may be
