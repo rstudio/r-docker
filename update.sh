@@ -23,6 +23,7 @@ declare -A os_identifiers=(
     [jammy]='ubuntu-2204'
     [noble]='ubuntu-2404'
     [bookworm]='debian-12'
+    [trixie]='debian-13'
     [centos7]='centos-7'
     [rockylinux8]='centos-8'
     [rockylinux9]='rhel-9'
@@ -56,7 +57,7 @@ for version in "${!r_versions[@]}"; do
         case "$variant" in
             focal|jammy|noble) template='ubuntu'
             ;;
-            bookworm) template='debian'
+            bookworm|trixie) template='debian'
             ;;
             centos7|rockylinux8) template='centos'
             ;;
