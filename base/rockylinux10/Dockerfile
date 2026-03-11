@@ -8,7 +8,9 @@ RUN dnf -y update && \
     perl-File-Find \
     sudo \
     vim \
-    wget && \
+    wget \
+    # xz is required to extract TinyTeX .tar.xz binaries
+    xz && \
     dnf clean all
 
 # Install TinyTeX

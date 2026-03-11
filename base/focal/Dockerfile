@@ -12,7 +12,9 @@ RUN apt-get update -qq && \
     perl \
     sudo \
     tzdata \
-    wget && \
+    wget \
+    # xz-utils is required to extract TinyTeX .tar.xz binaries
+    xz-utils && \
     rm -rf /var/lib/apt/lists/*
 
 # Install TinyTeX

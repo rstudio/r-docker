@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:focal
 
-ARG R_VERSION=4.5.2
+ARG R_VERSION=4.5.3
 ARG OS_IDENTIFIER=ubuntu-2004
 
 # Install R
