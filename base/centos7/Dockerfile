@@ -10,7 +10,9 @@ RUN yum -y update && \
     perl-Digest-MD5 \
     sudo \
     vim \
-    wget && \
+    wget \
+    # xz is required to extract TinyTeX .tar.xz binaries
+    xz && \
     yum clean all
 
 # Install TinyTeX

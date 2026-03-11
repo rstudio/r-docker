@@ -9,6 +9,8 @@ RUN zypper --non-interactive --gpg-auto-import-keys install \
     tar \
     vim \
     wget \
+    # xz is required to extract TinyTeX .tar.xz binaries
+    xz \
     && zypper clean --all
 
 # Install TinyTeX

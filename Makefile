@@ -8,7 +8,7 @@ PATCH_VERSIONS ?= 4.0.0 4.0.1 4.0.2 4.0.3 4.0.4 4.0.5 \
 	4.2.0 4.2.1 4.2.2 4.2.3 \
 	4.3.0 4.3.1 4.3.2 4.3.3 \
 	4.4.0 4.4.1 4.4.2 4.4.3 \
-	4.5.0 4.5.1 4.5.2
+	4.5.0 4.5.1 4.5.2 4.5.3
 # INCLUDE_PATCH_VERSIONS, if set to `yes`, includes all patch versions in the
 # "all" targets.
 INCLUDE_PATCH_VERSIONS ?= no
