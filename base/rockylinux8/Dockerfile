@@ -33,7 +33,7 @@ RUN ARCH=$([ "$(arch)" = "aarch64" ] && echo "arm64" || echo "amd64") && \
     rm pandoc.tar.gz
 
 # Set default locale
-ENV LANG en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
 # Set default timezone
-ENV TZ UTC
+ENV TZ=UTC

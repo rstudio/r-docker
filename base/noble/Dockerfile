@@ -39,7 +39,7 @@ RUN wget "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pand
     rm pandoc.tar.gz
 
 # Set default locale
-ENV LANG C.UTF-8
+ENV LANG=C.UTF-8
 
 # Set default timezone
-ENV TZ UTC
+ENV TZ=UTC
