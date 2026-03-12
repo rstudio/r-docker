@@ -17,7 +17,9 @@ RUN dnf -y update && \
     dnf clean all
 
 # Install TinyTeX
-RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
+# Use TeX Live 2025 from historic CTAN to avoid glibc 2.29 requirement in newer binaries.
+RUN export CTAN_REPO=https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2025/tlnet-final/ && \
+    wget -qO- "https://tinytex.yihui.org/install-unx.sh" | sh && \
     /root/.TinyTeX/bin/*/tlmgr path remove && \
     mv /root/.TinyTeX/ /opt/TinyTeX && \
     /opt/TinyTeX/bin/*/tlmgr option sys_bin /usr/local/bin && \
