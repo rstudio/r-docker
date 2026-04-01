@@ -134,7 +134,6 @@ jobs:
           # with building images that depend on another local image.
           # https://github.com/docker/buildx/issues/847
           driver: docker
-          install: true
 
       - name: Login to Docker Hub
         if: ${{ github.actor != 'dependabot[bot]' }}
@@ -211,7 +210,6 @@ jobs:
           # with building images that depend on another local image.
           # https://github.com/docker/buildx/issues/847
           driver: docker
-          install: true
 
       - name: Login to Docker Hub
         if: ${{ github.actor != 'dependabot[bot]' }}
@@ -265,7 +263,6 @@ jobs:
           # with building images that depend on another local image.
           # https://github.com/docker/buildx/issues/847
           driver: docker
-          install: true
 
       - name: Login to Docker Hub
         if: ${{ github.actor != 'dependabot[bot]' }}
