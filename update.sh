@@ -16,6 +16,7 @@ declare -A os_identifiers=(
     [focal]='ubuntu-2004'
     [jammy]='ubuntu-2204'
     [noble]='ubuntu-2404'
+    [resolute]='ubuntu-2604'
     [bookworm]='debian-12'
     [trixie]='debian-13'
     [centos7]='centos-7'
@@ -49,7 +50,7 @@ for version in "${!r_versions[@]}"; do
         mkdir -p $dir
 
         case "$variant" in
-            focal|jammy|noble) template='ubuntu'
+            focal|jammy|noble|resolute) template='ubuntu'
             ;;
             bookworm|trixie) template='debian'
             ;;
