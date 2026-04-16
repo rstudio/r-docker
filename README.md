@@ -47,7 +47,6 @@ The following distributions are supported for both `x86_64`/`amd64` and `aarch64
 
 | Distribution  | Full Name |
 | ------------- |-----------|
-| focal         | Ubuntu 20.04 |
 | jammy         | Ubuntu 22.04 |
 | noble         | Ubuntu 24.04 |
 | resolute      | Ubuntu 26.04 |
@@ -59,7 +58,7 @@ The following distributions are supported for both `x86_64`/`amd64` and `aarch64
 | rockylinux10  | Rocky Linux 10 |
 | opensuse156   | openSUSE 15.6 |
 
-All minor versions of R since 4.0 are supported, on the latest patch release.
+The supported R versions are the current release and the four previous minor versions. For example, if R 4.5 is the current version, images are available for R 4.5, 4.4, 4.3, 4.2, and 4.1.
 
 New versions of R are added when they're available on the
 [Posit CDN](https://cdn.posit.co/r/versions.json), though there may be
