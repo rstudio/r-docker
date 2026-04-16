@@ -2,7 +2,6 @@
 set -Eeuo pipefail
 
 declare -A r_versions=(
-    [4.0]='4.0.5'
     [4.1]='4.1.3'
     [4.2]='4.2.3'
     [4.3]='4.3.3'
@@ -13,7 +12,6 @@ declare -A r_versions=(
 )
 
 declare -A os_identifiers=(
-    [focal]='ubuntu-2004'
     [jammy]='ubuntu-2204'
     [noble]='ubuntu-2404'
     [bookworm]='debian-12'
@@ -49,7 +47,7 @@ for version in "${!r_versions[@]}"; do
         mkdir -p $dir
 
         case "$variant" in
-            focal|jammy|noble) template='ubuntu'
+            jammy|noble) template='ubuntu'
             ;;
             bookworm|trixie) template='debian'
             ;;
