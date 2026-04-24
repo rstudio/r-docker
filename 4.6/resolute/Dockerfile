@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:resolute
 
-ARG R_VERSION=4.1.3
+ARG R_VERSION=4.6.0
 ARG OS_IDENTIFIER=ubuntu-2604
 
 # Install R

@@ -22,14 +22,14 @@ refer to the [Rocker project](https://www.rocker-project.org/).
 These images can be used to execute R:
 
 ```
-docker run --rm -it posit/r-base:4.5-noble
+docker run --rm -it posit/r-base:4.6-noble
 ```
 
 These images can also be used as the basis for other custom images. To get
 started, use an image as the base in a Dockerfile:
 
 ```dockerfile
-FROM posit/r-base:4.5-noble
+FROM posit/r-base:4.6-noble
 ```
 
 ### Releases and Tags
@@ -58,7 +58,7 @@ The following distributions are supported for both `x86_64`/`amd64` and `aarch64
 | rockylinux10  | Rocky Linux 10 |
 | opensuse156   | openSUSE 15.6 |
 
-The supported R versions are the current release and the four previous minor versions. For example, if R 4.5 is the current version, images are available for R 4.5, 4.4, 4.3, 4.2, and 4.1.
+The supported R versions are the current release and the four previous minor versions. For example, if R 4.6 is the current version, images are available for R 4.6, 4.5, 4.4, 4.3, and 4.2.
 
 New versions of R are added when they're available on the
 [Posit CDN](https://cdn.posit.co/r/versions.json), though there may be

@@ -2,11 +2,11 @@
 set -Eeuo pipefail
 
 declare -A r_versions=(
-    [4.1]='4.1.3'
     [4.2]='4.2.3'
     [4.3]='4.3.3'
     [4.4]='4.4.3'
     [4.5]='4.5.3'
+    [4.6]='4.6.0'
     [devel]='devel'
     [next]='next'
 )
