@@ -5,10 +5,10 @@
 #
 
 ARG BASE_IMAGE=posit/r-base
-FROM ${BASE_IMAGE}:jammy
+FROM ${BASE_IMAGE}:bookworm
 
-ARG R_VERSION=4.1.3
-ARG OS_IDENTIFIER=ubuntu-2204
+ARG R_VERSION=4.6.0
+ARG OS_IDENTIFIER=debian-12
 
 # Install R
 RUN wget "https://cdn.posit.co/r/${OS_IDENTIFIER}/pkgs/r-${R_VERSION}_1_$(dpkg --print-architecture).deb" && \
