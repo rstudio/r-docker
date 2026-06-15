@@ -24,6 +24,8 @@ RUN apt-get update -qq && \
 # (--no-same-owner to disable that behavior). Ubuntu/Debian have fs.protected_regular
 # enabled by default, disallowing root from writing files owned by other users in /tmp,
 # which the TinyTeX installer needs to do. Setting TMPDIR to / works around this issue.
+# Retry the install: the TinyTeX installer pulls TeX Live packages from a CTAN
+# mirror, so a transient mirror/network failure would otherwise fail the build.
 RUN for i in 1 2 3; do \
         wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | TMPDIR=/ sh && break; \
         echo "TinyTeX install failed (attempt $i of 3), retrying in 5s..."; \

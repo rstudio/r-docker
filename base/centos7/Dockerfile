@@ -16,6 +16,8 @@ RUN yum -y update && \
     yum clean all
 
 # Install TinyTeX
+# Retry the install: the TinyTeX installer pulls TeX Live packages from a CTAN
+# mirror, so a transient mirror/network failure would otherwise fail the build.
 RUN for i in 1 2 3; do \
         wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && break; \
         echo "TinyTeX install failed (attempt $i of 3), retrying in 5s..."; \
