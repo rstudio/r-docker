@@ -50,7 +50,6 @@ The following distributions are supported for both `x86_64`/`amd64` and `aarch64
 | jammy         | Ubuntu 22.04 |
 | noble         | Ubuntu 24.04 |
 | resolute      | Ubuntu 26.04 |
-| bookworm      | Debian 12 |
 | trixie        | Debian 13 |
 | centos7       | CentOS 7* |
 | rockylinux8   | Rocky Linux 8 |
