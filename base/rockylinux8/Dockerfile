@@ -18,8 +18,14 @@ RUN dnf -y update && \
 
 # Install TinyTeX
 # Use TeX Live 2025 from historic CTAN to avoid glibc 2.29 requirement in newer binaries.
+# Retry the install to mitigate transient CTAN mirror connection failures.
 RUN export CTAN_REPO=https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2025/tlnet-final/ && \
-    wget -qO- "https://tinytex.yihui.org/install-unx.sh" | sh && \
+    for i in 1 2 3; do \
+        wget -qO- "https://tinytex.yihui.org/install-unx.sh" | sh && break; \
+        echo "TinyTeX install failed (attempt $i of 3), retrying in 5s..."; \
+        [ "$i" = 3 ] && exit 1; \
+        sleep 5; \
+    done && \
     /root/.TinyTeX/bin/*/tlmgr path remove && \
     mv /root/.TinyTeX/ /opt/TinyTeX && \
     /opt/TinyTeX/bin/*/tlmgr option sys_bin /usr/local/bin && \
