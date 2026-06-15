@@ -24,7 +24,12 @@ RUN apt-get update -qq && \
 # (--no-same-owner to disable that behavior). Ubuntu/Debian have fs.protected_regular
 # enabled by default, disallowing root from writing files owned by other users in /tmp,
 # which the TinyTeX installer needs to do. Setting TMPDIR to / works around this issue.
-RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | TMPDIR=/ sh && \
+RUN for i in 1 2 3; do \
+        wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | TMPDIR=/ sh && break; \
+        echo "TinyTeX install failed (attempt $i of 3), retrying in 5s..."; \
+        [ "$i" = 3 ] && exit 1; \
+        sleep 5; \
+    done && \
     /root/.TinyTeX/bin/*/tlmgr path remove && \
     mv /root/.TinyTeX/ /opt/TinyTeX && \
     /opt/TinyTeX/bin/*/tlmgr option sys_bin /usr/local/bin && \

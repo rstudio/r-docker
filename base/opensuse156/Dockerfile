@@ -14,7 +14,12 @@ RUN zypper --non-interactive --gpg-auto-import-keys install \
     && zypper clean --all
 
 # Install TinyTeX
-RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && \
+RUN for i in 1 2 3; do \
+        wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh && break; \
+        echo "TinyTeX install failed (attempt $i of 3), retrying in 5s..."; \
+        [ "$i" = 3 ] && exit 1; \
+        sleep 5; \
+    done && \
     /root/.TinyTeX/bin/*/tlmgr path remove && \
     mv /root/.TinyTeX/ /opt/TinyTeX && \
     /opt/TinyTeX/bin/*/tlmgr option sys_bin /usr/local/bin && \
