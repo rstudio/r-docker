@@ -1,6 +1,6 @@
 BASE_IMAGE ?= posit/r-base
 VERSIONS ?= 4.2 4.3 4.4 4.5 4.6 devel next
-VARIANTS ?= jammy noble resolute bookworm trixie centos7 rockylinux8 rockylinux9 rockylinux10 opensuse156
+VARIANTS ?= jammy noble resolute trixie centos7 rockylinux8 rockylinux9 rockylinux10 opensuse156
 
 # PATCH_VERSIONS defines all actively maintained R patch versions.
 PATCH_VERSIONS ?= 4.2.0 4.2.1 4.2.2 4.2.3 \
