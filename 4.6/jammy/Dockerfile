@@ -7,7 +7,7 @@
 ARG BASE_IMAGE=posit/r-base
 FROM ${BASE_IMAGE}:jammy
 
-ARG R_VERSION=4.6.0
+ARG R_VERSION=4.6.1
 ARG OS_IDENTIFIER=ubuntu-2204
 
 # Install R
