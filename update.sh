@@ -16,7 +16,6 @@ declare -A os_identifiers=(
     [noble]='ubuntu-2404'
     [resolute]='ubuntu-2604'
     [trixie]='debian-13'
-    [centos7]='centos-7'
     [rockylinux8]='centos-8'
     [rockylinux9]='rhel-9'
     [rockylinux10]='rhel-10'
@@ -51,7 +50,7 @@ for version in "${!r_versions[@]}"; do
             ;;
             trixie) template='debian'
             ;;
-            centos7|rockylinux8) template='centos'
+            rockylinux8) template='centos'
             ;;
             rockylinux9|rockylinux10) template='rockylinux'
             ;;

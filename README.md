@@ -51,7 +51,6 @@ The following distributions are supported for both `x86_64`/`amd64` and `aarch64
 | noble         | Ubuntu 24.04 |
 | resolute      | Ubuntu 26.04 |
 | trixie        | Debian 13 |
-| centos7       | CentOS 7* |
 | rockylinux8   | Rocky Linux 8 |
 | rockylinux9   | Rocky Linux 9 |
 | rockylinux10  | Rocky Linux 10 |
@@ -64,8 +63,6 @@ New versions of R are added when they're available on the
 some delay between the release of R and the release of the Docker image.
 
 New operating systems are added on a less frequent basis. 
-
-`arm64` images are not supported for CentOS 7.
 
 ### What is R?
 

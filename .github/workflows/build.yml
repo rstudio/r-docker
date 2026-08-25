@@ -86,7 +86,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       variants: ${{ steps.setup-matrix.outputs.variants }}
-      variants_arm64: ${{ steps.setup-matrix.outputs.variants_arm64 }}
       arch: ${{ steps.setup-matrix.outputs.arch }}
     steps:
       - uses: actions/checkout@v7
@@ -102,12 +101,6 @@ jobs:
           variants=$(echo "$variants" | jq -R -c '[splits(" ")]')
           echo "variants=$variants" >> $GITHUB_OUTPUT
           echo "variants: $variants"
-
-          # centos7 is not supported on arm64, so filter it out for arm64 builds.
-          # This can be removed once centos7 is no longer supported.
-          variants_arm64=$(echo "$variants" | jq -c 'map(select(. != "centos7"))')
-          echo "variants_arm64=$variants_arm64" >> $GITHUB_OUTPUT
-          echo "variants_arm64: $variants_arm64"
 
           # Convert comma-separated list of architectures to JSON array
           arch=$(echo "${{ inputs.arch || 'amd64,arm64' }}" | jq -Rc 'split(",")')
@@ -165,13 +158,7 @@ jobs:
       - name: Push images
         if: ${{ github.ref == 'refs/heads/main' || inputs.publish_images }}
         run: |
-          if [[ "${{ matrix.variant }}" != "centos7" ]]; then
-            make push-all
-          else
-            # centos7 is not supported on arm64, so we push the amd64 image only.
-            # This can be removed once centos7 is no longer supported.
-            make push-all ARCH=
-          fi
+          make push-all
 
       # Push images to deprecated rstudio repository.
       # Multiarch images are not supported here, only amd64.
@@ -191,11 +178,11 @@ jobs:
   # to the deprecated rstudio repository.
   docker-images-arm64:
     needs: setup-matrix
-    if: contains(needs.setup-matrix.outputs.arch, '"arm64"') && needs.setup-matrix.outputs.variants_arm64 != '[]'
+    if: contains(needs.setup-matrix.outputs.arch, '"arm64"') && needs.setup-matrix.outputs.variants != '[]'
     strategy:
       fail-fast: false
       matrix:
-        variant: ${{ fromJson(needs.setup-matrix.outputs.variants_arm64) }}
+        variant: ${{ fromJson(needs.setup-matrix.outputs.variants) }}
       # Reduce max-parallel in case of `out of space` errors, particularly on the full patch version builds
       max-parallel: 10
     runs-on: ubuntu-24.04-arm
@@ -252,7 +239,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: ${{ fromJson(needs.setup-matrix.outputs.variants_arm64) }}
+        variant: ${{ fromJson(needs.setup-matrix.outputs.variants) }}
     env:
       VARIANTS: ${{ matrix.variant }}
     steps:
