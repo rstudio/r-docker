@@ -12,6 +12,16 @@ PATCH_VERSIONS ?= 4.2.0 4.2.1 4.2.2 4.2.3 \
 # "all" targets.
 INCLUDE_PATCH_VERSIONS ?= no
 
+# Return the major.minor directory for a patch version, or the input unchanged
+# for special versions such as devel and next.
+minor_version = $(if $(word 2,$(subst ., ,$(1))),$(word 1,$(subst ., ,$(1))).$(word 2,$(subst ., ,$(1))),$(1))
+
+# Patch versions supplied through VERSIONS should build individually. The
+# existing PATCH_VERSIONS list remains available for full patch rebuilds.
+REQUESTED_PATCH_VERSIONS := $(foreach version,$(VERSIONS),$(if $(filter $(version),$(call minor_version,$(version))),,$(version)))
+PATCH_VERSIONS_TO_DEFINE := $(sort $(PATCH_VERSIONS) $(REQUESTED_PATCH_VERSIONS))
+PATCH_VERSIONS_TO_BUILD := $(sort $(REQUESTED_PATCH_VERSIONS) $(if $(filter yes,$(INCLUDE_PATCH_VERSIONS)),$(PATCH_VERSIONS)))
+
 # Architecture used for the image tags, either amd64 or arm64.
 # ARCH can be omitted to directly push a single arch image.
 ARCH ?= $(shell uname -m | sed -e 's/aarch64/arm64/' -e 's/x86_64/amd64/')
@@ -71,13 +81,9 @@ PUSH_R_IMAGES += push-$(version)-$(variant)
 PUSH_MULTIARCH_R_IMAGES += push-multiarch-$(version)-$(variant)
 endef
 
-define minor_version
-$(shell echo $(version) | cut -d. -f-2)
-endef
-
 $(foreach variant,$(VARIANTS), \
   $(foreach version,$(VERSIONS), \
-    $(if $(wildcard $(minor_version)/$(variant)), \
+    $(if $(and $(filter $(version),$(call minor_version,$(version))),$(wildcard $(call minor_version,$(version))/$(variant))), \
       $(eval $(GEN_R_IMAGE_TARGETS)) \
     ) \
   ) \
@@ -88,13 +94,13 @@ build-$(version)-$(variant): build-base-$(variant)
 	docker build -t $(BASE_IMAGE):$(version)-$(variant) \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--build-arg R_VERSION=$(version) \
-		$(minor_version)/$(variant)/.
+		$(call minor_version,$(version))/$(variant)/.
 
 rebuild-$(version)-$(variant): build-base-$(variant)
 	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--build-arg R_VERSION=$(version) \
-		$(minor_version)/$(variant)/.
+		$(call minor_version,$(version))/$(variant)/.
 
 test-$(version)-$(variant):
 	docker run --rm -v $(PWD)/test:/test \
@@ -114,7 +120,7 @@ push-$(version)-$(variant):
 push-multiarch-$(version)-$(variant):
 	BASE_IMAGE=$(BASE_IMAGE) VERSION=$(version) VARIANT=$(variant) bash ./push-multiarch.sh
 
-ifeq (yes,$(INCLUDE_PATCH_VERSIONS))
+ifneq (,$(filter $(version),$(PATCH_VERSIONS_TO_BUILD)))
 BUILD_R_IMAGES += build-$(version)-$(variant)
 REBUILD_R_IMAGES += rebuild-$(version)-$(variant)
 TEST_R_IMAGES += test-$(version)-$(variant)
@@ -125,8 +131,8 @@ endif
 endef
 
 $(foreach variant,$(VARIANTS), \
-  $(foreach version,$(PATCH_VERSIONS), \
-    $(if $(wildcard $(minor_version)/$(variant)), \
+  $(foreach version,$(PATCH_VERSIONS_TO_DEFINE), \
+    $(if $(wildcard $(call minor_version,$(version))/$(variant)), \
       $(eval $(GEN_R_PATCH_IMAGE_TARGETS)) \
     ) \
   ) \

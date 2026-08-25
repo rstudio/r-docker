@@ -12,7 +12,8 @@ on:
         type: string
       versions:
         description: |
-          Space-separated list of R versions. Defaults to all versions.
+          Space-separated list of R versions, such as "4.6" or "4.6.1".
+          Defaults to all configured versions.
         required: false
         default: ''
         type: string
@@ -35,7 +36,7 @@ on:
         type: boolean
       include_patch_versions:
         description: |
-          When building all R versions, include R patch version tags (x.y.z) as well?
+          Also build every configured R patch version (x.y.z).
         required: false
         default: false
         type: boolean
@@ -43,7 +44,8 @@ on:
     inputs:
       versions:
         description: |
-          Space-separated list of R versions. Defaults to all versions.
+          Space-separated list of R versions, such as "4.6" or "4.6.1".
+          Defaults to all configured versions.
         required: false
         default: ''
         type: string
@@ -62,7 +64,7 @@ on:
         type: boolean
       include_patch_versions:
         description: |
-          Include R patch versions?
+          Also build every configured R patch version (x.y.z).
         required: false
         default: false
         type: boolean
