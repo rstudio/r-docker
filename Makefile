@@ -40,6 +40,9 @@ update-all:
 build-base-%:
 	docker build -t $(BASE_IMAGE):$* base/$*/.
 
+rebuild-base-%:
+	docker build --pull --no-cache -t $(BASE_IMAGE):$* base/$*/.
+
 pull-base-%:
 	docker pull $(BASE_IMAGE):$*
 
@@ -52,7 +55,7 @@ build-$(version)-$(variant): build-base-$(variant)
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		$(version)/$(variant)/.
 
-rebuild-$(version)-$(variant): build-base-$(variant)
+rebuild-$(version)-$(variant): rebuild-base-$(variant)
 	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) --build-arg BASE_IMAGE=$(BASE_IMAGE) $(version)/$(variant)/.
 
 test-$(version)-$(variant):
@@ -96,7 +99,7 @@ build-$(version)-$(variant): build-base-$(variant)
 		--build-arg R_VERSION=$(version) \
 		$(call minor_version,$(version))/$(variant)/.
 
-rebuild-$(version)-$(variant): build-base-$(variant)
+rebuild-$(version)-$(variant): rebuild-base-$(variant)
 	docker build --no-cache -t $(BASE_IMAGE):$(version)-$(variant) \
 		--build-arg BASE_IMAGE=$(BASE_IMAGE) \
 		--build-arg R_VERSION=$(version) \

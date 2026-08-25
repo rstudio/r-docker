@@ -156,7 +156,7 @@ jobs:
 
       - name: Build images
         run: |
-          make build-all
+          make rebuild-all
 
       - name: Test images
         run: |
@@ -232,7 +232,7 @@ jobs:
 
       - name: Build images
         run: |
-          make build-all
+          make rebuild-all
 
       - name: Test images
         run: |
