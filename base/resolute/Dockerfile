@@ -2,6 +2,12 @@ FROM ubuntu:resolute
 
 LABEL maintainer="Posit Docker <docker@posit.co>"
 
+# These R images do not use Ubuntu's bundled Pebble service manager.
+# Remove the unused Go binary to avoid vulnerabilities in its embedded runtime.
+RUN rm -f /usr/bin/pebble /bin/pebble && \
+    rm -rf /var/lib/pebble && \
+    ! command -v pebble
+
 RUN apt-get update -qq && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     apt-transport-https \
