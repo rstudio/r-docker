@@ -2,8 +2,8 @@ FROM ubuntu:resolute
 
 LABEL maintainer="Posit Docker <docker@posit.co>"
 
-# Ubuntu 26.04 includes Pebble as a standalone Rockcraft binary. The R images
-# do not use Pebble, so remove it and its embedded Go dependencies.
+# These R images do not use Ubuntu's bundled Pebble service manager.
+# Remove the unused Go binary to avoid vulnerabilities in its embedded runtime.
 RUN rm -f /usr/bin/pebble /bin/pebble && \
     rm -rf /var/lib/pebble && \
     ! command -v pebble
