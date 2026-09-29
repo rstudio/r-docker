@@ -115,7 +115,7 @@ jobs:
         variant: ${{ fromJson(needs.setup-matrix.outputs.variants) }}
       # Reduce max-parallel in case of `out of space` errors, particularly on the full patch version builds
       max-parallel: 10
-    runs-on: ubuntu-latest-4x
+    runs-on: ubuntu-latest-amd64-4-core
     name: Docker images (${{ matrix.variant }}-amd64)
     env:
       VARIANTS: ${{ matrix.variant }}
